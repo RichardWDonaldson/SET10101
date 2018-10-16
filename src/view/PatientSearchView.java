@@ -91,6 +91,7 @@ public class PatientSearchView {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//execute find patient
+			
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
