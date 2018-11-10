@@ -1,7 +1,7 @@
 package controller;
 
 import java.sql.*;
-public class GetMySQLConnection {
+public class Database {
 
 	
 	

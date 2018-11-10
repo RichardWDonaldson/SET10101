@@ -4,8 +4,8 @@ import java.sql.*;
 import model.Patient;
 
 public class Controller {
-
-	Connection con;
+	Database database = new Database();
+	Connection con = database.getConnection();
 	
 //	private Patient findPatient() {
 //		//for each patient in list
@@ -15,5 +15,9 @@ public class Controller {
 //		return null;
 //		
 //	}
+	
+	
+
+	
 	
 }
