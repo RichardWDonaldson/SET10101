@@ -11,17 +11,33 @@ public class PDAView {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					PDAView window = new PDAView();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+	
+	public static void NewScreen() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					PDAView window = new PDAView();
 					window.frame.setVisible(true);
+					//Controller.initialize();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-		});
+			}	
+		
+			});
+		
 	}
 
 	/**

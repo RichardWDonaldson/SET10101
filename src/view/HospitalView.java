@@ -3,6 +3,12 @@ package view;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import java.awt.GridBagLayout;
+import javax.swing.JTabbedPane;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JPanel;
+import javax.swing.JButton;
 
 public class HospitalView {
 
@@ -11,19 +17,36 @@ public class HospitalView {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					HospitalView window = new HospitalView();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+	
+	public static void NewScreen() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					HospitalView window = new HospitalView();
 					window.frame.setVisible(true);
+					//Controller.initialize();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-		});
+			}	
+		
+			});
+		
 	}
 
+	
 	/**
 	 * Create the application.
 	 */
@@ -36,8 +59,6 @@ public class HospitalView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }
