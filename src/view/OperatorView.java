@@ -16,35 +16,40 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.TitledBorder;
+
+import controller.Controller;
+import model.Incident;
+import model.Patient;
+
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class OperatorView {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
+	private JTextField txtCHI;
+	private JTextField txtName;
+	private JTextField txtDOB;
+	private JTextField txtGender;
 	private JTextField textField_9;
 	private JTextField textField_10;
 	private JTextField textField_11;
 	private JTextField textField_12;
 	private JTextField textField_13;
-	private JTextField textField_14;
-	private JTextField textField_15;
-	private JTextField textField_16;
-	private JTextField textField_17;
-	private JTextField textField_18;
-	private JTextField textField_19;
-	private JTextField textField_20;
-	private JTextField textField_21;
+	private JTextField txtPhone1;
+	private JTextField txtPhone2;
+	private JTextField txtDate;
+	private JTextField txtTime;
+	String lastCrawlDate = "2014-01-28";
+	Controller controller = new Controller();
+	Date utilDate;
+	java.sql.Date sqlDate;
+	Patient selectedPatient;
 
 	/**
 	 * Launch the application.
@@ -68,7 +73,7 @@ public class OperatorView {
 				try {
 					OperatorView window = new OperatorView();
 					window.frame.setVisible(true);
-					//Controller.initialize();
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -82,8 +87,10 @@ public class OperatorView {
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public OperatorView() {
+	public OperatorView() throws IOException {
+		controller.initialize();
 		initialize();
 	}
 
@@ -92,17 +99,18 @@ public class OperatorView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 355);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{245, 0, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
 		gbc_tabbedPane.insets = new Insets(0, 0, 5, 0);
-		gbc_tabbedPane.gridwidth = 2;
+		gbc_tabbedPane.gridwidth = 3;
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
 		gbc_tabbedPane.gridx = 0;
 		gbc_tabbedPane.gridy = 0;
@@ -155,14 +163,14 @@ public class OperatorView {
 		gbc_lblNewLabel.gridy = 0;
 		panel_2.add(lblNewLabel, gbc_lblNewLabel);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 0;
-		panel_2.add(textField, gbc_textField);
-		textField.setColumns(10);
+		txtCHI = new JTextField();
+		GridBagConstraints gbc_txtCHI = new GridBagConstraints();
+		gbc_txtCHI.insets = new Insets(0, 0, 5, 0);
+		gbc_txtCHI.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtCHI.gridx = 1;
+		gbc_txtCHI.gridy = 0;
+		panel_2.add(txtCHI, gbc_txtCHI);
+		txtCHI.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Full Name");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -172,14 +180,14 @@ public class OperatorView {
 		gbc_lblNewLabel_1.gridy = 1;
 		panel_2.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 1;
-		gbc_textField_1.gridy = 1;
-		panel_2.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		txtName = new JTextField();
+		GridBagConstraints gbc_txtName = new GridBagConstraints();
+		gbc_txtName.insets = new Insets(0, 0, 5, 0);
+		gbc_txtName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtName.gridx = 1;
+		gbc_txtName.gridy = 1;
+		panel_2.add(txtName, gbc_txtName);
+		txtName.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("DOB");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -189,14 +197,14 @@ public class OperatorView {
 		gbc_lblNewLabel_2.gridy = 2;
 		panel_2.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		textField_2 = new JTextField();
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.gridx = 1;
-		gbc_textField_2.gridy = 2;
-		panel_2.add(textField_2, gbc_textField_2);
-		textField_2.setColumns(10);
+		txtDOB = new JTextField();
+		GridBagConstraints gbc_txtDOB = new GridBagConstraints();
+		gbc_txtDOB.insets = new Insets(0, 0, 5, 0);
+		gbc_txtDOB.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtDOB.gridx = 1;
+		gbc_txtDOB.gridy = 2;
+		panel_2.add(txtDOB, gbc_txtDOB);
+		txtDOB.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Gender");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
@@ -206,14 +214,14 @@ public class OperatorView {
 		gbc_lblNewLabel_3.gridy = 3;
 		panel_2.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
-		textField_3 = new JTextField();
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.gridx = 1;
-		gbc_textField_3.gridy = 3;
-		panel_2.add(textField_3, gbc_textField_3);
-		textField_3.setColumns(10);
+		txtGender = new JTextField();
+		GridBagConstraints gbc_txtGender = new GridBagConstraints();
+		gbc_txtGender.insets = new Insets(0, 0, 5, 0);
+		gbc_txtGender.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtGender.gridx = 1;
+		gbc_txtGender.gridy = 3;
+		panel_2.add(txtGender, gbc_txtGender);
+		txtGender.setColumns(10);
 		
 		JLabel lblNewLabel_9 = new JLabel("Phone 1");
 		GridBagConstraints gbc_lblNewLabel_9 = new GridBagConstraints();
@@ -223,14 +231,14 @@ public class OperatorView {
 		gbc_lblNewLabel_9.gridy = 4;
 		panel_2.add(lblNewLabel_9, gbc_lblNewLabel_9);
 		
-		textField_14 = new JTextField();
-		GridBagConstraints gbc_textField_14 = new GridBagConstraints();
-		gbc_textField_14.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_14.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_14.gridx = 1;
-		gbc_textField_14.gridy = 4;
-		panel_2.add(textField_14, gbc_textField_14);
-		textField_14.setColumns(10);
+		txtPhone1 = new JTextField();
+		GridBagConstraints gbc_txtPhone1 = new GridBagConstraints();
+		gbc_txtPhone1.insets = new Insets(0, 0, 5, 0);
+		gbc_txtPhone1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtPhone1.gridx = 1;
+		gbc_txtPhone1.gridy = 4;
+		panel_2.add(txtPhone1, gbc_txtPhone1);
+		txtPhone1.setColumns(10);
 		
 		JLabel lblNewLabel_10 = new JLabel("Phone 2");
 		GridBagConstraints gbc_lblNewLabel_10 = new GridBagConstraints();
@@ -240,13 +248,13 @@ public class OperatorView {
 		gbc_lblNewLabel_10.gridy = 5;
 		panel_2.add(lblNewLabel_10, gbc_lblNewLabel_10);
 		
-		textField_15 = new JTextField();
-		GridBagConstraints gbc_textField_15 = new GridBagConstraints();
-		gbc_textField_15.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_15.gridx = 1;
-		gbc_textField_15.gridy = 5;
-		panel_2.add(textField_15, gbc_textField_15);
-		textField_15.setColumns(10);
+		txtPhone2 = new JTextField();
+		GridBagConstraints gbc_txtPhone2 = new GridBagConstraints();
+		gbc_txtPhone2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtPhone2.gridx = 1;
+		gbc_txtPhone2.gridy = 5;
+		panel_2.add(txtPhone2, gbc_txtPhone2);
+		txtPhone2.setColumns(10);
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBorder(new TitledBorder(null, "Address", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -361,213 +369,6 @@ public class OperatorView {
 		panel_4.add(textField_13, gbc_textField_13);
 		textField_13.setColumns(10);
 		
-		JPanel panel_9 = new JPanel();
-		panel_9.setBorder(new TitledBorder(null, "Next of Kin", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_panel_9 = new GridBagConstraints();
-		gbc_panel_9.fill = GridBagConstraints.BOTH;
-		gbc_panel_9.gridx = 0;
-		gbc_panel_9.gridy = 1;
-		panel_5.add(panel_9, gbc_panel_9);
-		GridBagLayout gbl_panel_9 = new GridBagLayout();
-		gbl_panel_9.columnWidths = new int[]{0, 0};
-		gbl_panel_9.rowHeights = new int[]{0, 0};
-		gbl_panel_9.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_9.rowWeights = new double[]{1.0, Double.MIN_VALUE};
-		panel_9.setLayout(gbl_panel_9);
-		
-		JPanel panel_7 = new JPanel();
-		GridBagConstraints gbc_panel_7 = new GridBagConstraints();
-		gbc_panel_7.fill = GridBagConstraints.BOTH;
-		gbc_panel_7.gridx = 0;
-		gbc_panel_7.gridy = 0;
-		panel_9.add(panel_7, gbc_panel_7);
-		GridBagLayout gbl_panel_7 = new GridBagLayout();
-		gbl_panel_7.columnWidths = new int[]{0, 0, 0};
-		gbl_panel_7.rowHeights = new int[]{0, 0, 0, 0, 0};
-		gbl_panel_7.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_7.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel_7.setLayout(gbl_panel_7);
-		
-		JLabel lblNewLabel_11 = new JLabel("Full Name");
-		GridBagConstraints gbc_lblNewLabel_11 = new GridBagConstraints();
-		gbc_lblNewLabel_11.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_11.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_11.fill = GridBagConstraints.VERTICAL;
-		gbc_lblNewLabel_11.gridx = 0;
-		gbc_lblNewLabel_11.gridy = 0;
-		panel_7.add(lblNewLabel_11, gbc_lblNewLabel_11);
-		
-		textField_16 = new JTextField();
-		GridBagConstraints gbc_textField_16 = new GridBagConstraints();
-		gbc_textField_16.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_16.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_16.gridx = 1;
-		gbc_textField_16.gridy = 0;
-		panel_7.add(textField_16, gbc_textField_16);
-		textField_16.setColumns(10);
-		
-		JLabel lblNewLabel_12 = new JLabel("Relationship");
-		GridBagConstraints gbc_lblNewLabel_12 = new GridBagConstraints();
-		gbc_lblNewLabel_12.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_12.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_12.gridx = 0;
-		gbc_lblNewLabel_12.gridy = 1;
-		panel_7.add(lblNewLabel_12, gbc_lblNewLabel_12);
-		
-		textField_17 = new JTextField();
-		GridBagConstraints gbc_textField_17 = new GridBagConstraints();
-		gbc_textField_17.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_17.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_17.gridx = 1;
-		gbc_textField_17.gridy = 1;
-		panel_7.add(textField_17, gbc_textField_17);
-		textField_17.setColumns(10);
-		
-		JLabel lblNewLabel_13 = new JLabel("Phone 1");
-		GridBagConstraints gbc_lblNewLabel_13 = new GridBagConstraints();
-		gbc_lblNewLabel_13.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_13.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_13.gridx = 0;
-		gbc_lblNewLabel_13.gridy = 2;
-		panel_7.add(lblNewLabel_13, gbc_lblNewLabel_13);
-		
-		textField_18 = new JTextField();
-		GridBagConstraints gbc_textField_18 = new GridBagConstraints();
-		gbc_textField_18.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_18.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_18.gridx = 1;
-		gbc_textField_18.gridy = 2;
-		panel_7.add(textField_18, gbc_textField_18);
-		textField_18.setColumns(10);
-		
-		JLabel lblPhone = new JLabel("Phone 2");
-		GridBagConstraints gbc_lblPhone = new GridBagConstraints();
-		gbc_lblPhone.anchor = GridBagConstraints.EAST;
-		gbc_lblPhone.insets = new Insets(0, 0, 0, 5);
-		gbc_lblPhone.gridx = 0;
-		gbc_lblPhone.gridy = 3;
-		panel_7.add(lblPhone, gbc_lblPhone);
-		
-		textField_19 = new JTextField();
-		GridBagConstraints gbc_textField_19 = new GridBagConstraints();
-		gbc_textField_19.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_19.gridx = 1;
-		gbc_textField_19.gridy = 3;
-		panel_7.add(textField_19, gbc_textField_19);
-		textField_19.setColumns(10);
-		
-		JPanel panel_8 = new JPanel();
-		panel_8.setBorder(new TitledBorder(null, "GP Details", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_panel_8 = new GridBagConstraints();
-		gbc_panel_8.fill = GridBagConstraints.BOTH;
-		gbc_panel_8.insets = new Insets(0, 0, 0, 5);
-		gbc_panel_8.gridx = 0;
-		gbc_panel_8.gridy = 1;
-		panel.add(panel_8, gbc_panel_8);
-		GridBagLayout gbl_panel_8 = new GridBagLayout();
-		gbl_panel_8.columnWidths = new int[]{0, 0};
-		gbl_panel_8.rowHeights = new int[]{0, 0};
-		gbl_panel_8.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_8.rowWeights = new double[]{1.0, Double.MIN_VALUE};
-		panel_8.setLayout(gbl_panel_8);
-		
-		JPanel panel_6 = new JPanel();
-		GridBagConstraints gbc_panel_6 = new GridBagConstraints();
-		gbc_panel_6.fill = GridBagConstraints.BOTH;
-		gbc_panel_6.gridx = 0;
-		gbc_panel_6.gridy = 0;
-		panel_8.add(panel_6, gbc_panel_6);
-		GridBagLayout gbl_panel_6 = new GridBagLayout();
-		gbl_panel_6.columnWidths = new int[]{0, 0, 0};
-		gbl_panel_6.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_panel_6.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_6.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel_6.setLayout(gbl_panel_6);
-		
-		JLabel lblGpName = new JLabel("GP Name");
-		GridBagConstraints gbc_lblGpName = new GridBagConstraints();
-		gbc_lblGpName.anchor = GridBagConstraints.EAST;
-		gbc_lblGpName.insets = new Insets(0, 0, 5, 5);
-		gbc_lblGpName.gridx = 0;
-		gbc_lblGpName.gridy = 0;
-		panel_6.add(lblGpName, gbc_lblGpName);
-		
-		textField_4 = new JTextField();
-		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_4.gridx = 1;
-		gbc_textField_4.gridy = 0;
-		panel_6.add(textField_4, gbc_textField_4);
-		textField_4.setColumns(10);
-		
-		JLabel lblSurgeryId = new JLabel("Surgery ID");
-		GridBagConstraints gbc_lblSurgeryId = new GridBagConstraints();
-		gbc_lblSurgeryId.anchor = GridBagConstraints.EAST;
-		gbc_lblSurgeryId.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSurgeryId.gridx = 0;
-		gbc_lblSurgeryId.gridy = 1;
-		panel_6.add(lblSurgeryId, gbc_lblSurgeryId);
-		
-		textField_5 = new JTextField();
-		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_5.gridx = 1;
-		gbc_textField_5.gridy = 1;
-		panel_6.add(textField_5, gbc_textField_5);
-		textField_5.setColumns(10);
-		
-		JLabel lblSurgeryName = new JLabel("Surgery Name");
-		GridBagConstraints gbc_lblSurgeryName = new GridBagConstraints();
-		gbc_lblSurgeryName.anchor = GridBagConstraints.EAST;
-		gbc_lblSurgeryName.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSurgeryName.gridx = 0;
-		gbc_lblSurgeryName.gridy = 2;
-		panel_6.add(lblSurgeryName, gbc_lblSurgeryName);
-		
-		textField_6 = new JTextField();
-		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-		gbc_textField_6.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_6.gridx = 1;
-		gbc_textField_6.gridy = 2;
-		panel_6.add(textField_6, gbc_textField_6);
-		textField_6.setColumns(10);
-		
-		JLabel lblSurgeryAddress = new JLabel("Surgery Address");
-		GridBagConstraints gbc_lblSurgeryAddress = new GridBagConstraints();
-		gbc_lblSurgeryAddress.anchor = GridBagConstraints.EAST;
-		gbc_lblSurgeryAddress.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSurgeryAddress.gridx = 0;
-		gbc_lblSurgeryAddress.gridy = 3;
-		panel_6.add(lblSurgeryAddress, gbc_lblSurgeryAddress);
-		
-		textField_7 = new JTextField();
-		GridBagConstraints gbc_textField_7 = new GridBagConstraints();
-		gbc_textField_7.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_7.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_7.gridx = 1;
-		gbc_textField_7.gridy = 3;
-		panel_6.add(textField_7, gbc_textField_7);
-		textField_7.setColumns(10);
-		
-		JLabel lblContactNumber = new JLabel("Contact Number");
-		GridBagConstraints gbc_lblContactNumber = new GridBagConstraints();
-		gbc_lblContactNumber.anchor = GridBagConstraints.EAST;
-		gbc_lblContactNumber.insets = new Insets(0, 0, 0, 5);
-		gbc_lblContactNumber.gridx = 0;
-		gbc_lblContactNumber.gridy = 4;
-		panel_6.add(lblContactNumber, gbc_lblContactNumber);
-		
-		textField_8 = new JTextField();
-		GridBagConstraints gbc_textField_8 = new GridBagConstraints();
-		gbc_textField_8.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_8.gridx = 1;
-		gbc_textField_8.gridy = 4;
-		panel_6.add(textField_8, gbc_textField_8);
-		textField_8.setColumns(10);
-		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Incident Details", null, panel_1, null);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
@@ -605,7 +406,7 @@ public class OperatorView {
 		gbl_panel_10.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_10.setLayout(gbl_panel_10);
 		
-		JLabel lblNewLabel_14 = new JLabel("New label");
+		JLabel lblNewLabel_14 = new JLabel("Date");
 		GridBagConstraints gbc_lblNewLabel_14 = new GridBagConstraints();
 		gbc_lblNewLabel_14.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_14.anchor = GridBagConstraints.EAST;
@@ -613,16 +414,28 @@ public class OperatorView {
 		gbc_lblNewLabel_14.gridy = 0;
 		panel_10.add(lblNewLabel_14, gbc_lblNewLabel_14);
 		
-		textField_20 = new JTextField();
-		GridBagConstraints gbc_textField_20 = new GridBagConstraints();
-		gbc_textField_20.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_20.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_20.gridx = 1;
-		gbc_textField_20.gridy = 0;
-		panel_10.add(textField_20, gbc_textField_20);
-		textField_20.setColumns(10);
+		txtDate = new JTextField();
+		GridBagConstraints gbc_txtDate = new GridBagConstraints();
+		gbc_txtDate.insets = new Insets(0, 0, 5, 0);
+		gbc_txtDate.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtDate.gridx = 1;
+		gbc_txtDate.gridy = 0;
+		panel_10.add(txtDate, gbc_txtDate);
+		txtDate.setColumns(10);
 		
-		JLabel lblNewLabel_15 = new JLabel("New label");
+		try {
+			utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(lastCrawlDate);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); 
+		
+		
+		txtDate.setText(sqlDate.toString());
+		
+		JLabel lblNewLabel_15 = new JLabel("Time");
 		GridBagConstraints gbc_lblNewLabel_15 = new GridBagConstraints();
 		gbc_lblNewLabel_15.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_15.insets = new Insets(0, 0, 0, 5);
@@ -630,16 +443,16 @@ public class OperatorView {
 		gbc_lblNewLabel_15.gridy = 1;
 		panel_10.add(lblNewLabel_15, gbc_lblNewLabel_15);
 		
-		textField_21 = new JTextField();
-		GridBagConstraints gbc_textField_21 = new GridBagConstraints();
-		gbc_textField_21.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_21.gridx = 1;
-		gbc_textField_21.gridy = 1;
-		panel_10.add(textField_21, gbc_textField_21);
-		textField_21.setColumns(10);
+		txtTime = new JTextField();
+		GridBagConstraints gbc_txtTime = new GridBagConstraints();
+		gbc_txtTime.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtTime.gridx = 1;
+		gbc_txtTime.gridy = 1;
+		panel_10.add(txtTime, gbc_txtTime);
+		txtTime.setColumns(10);
 		
 		JPanel panel_12 = new JPanel();
-		panel_12.setBorder(new TitledBorder(null, "JPanel title", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_12.setBorder(new TitledBorder(null, "Notes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_panel_12 = new GridBagConstraints();
 		gbc_panel_12.fill = GridBagConstraints.BOTH;
 		gbc_panel_12.gridx = 0;
@@ -665,24 +478,54 @@ public class OperatorView {
 		gbl_panel_11.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		panel_11.setLayout(gbl_panel_11);
 		
-		JTextArea textArea = new JTextArea();
-		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.gridwidth = 2;
-		gbc_textArea.fill = GridBagConstraints.BOTH;
-		gbc_textArea.gridx = 0;
-		gbc_textArea.gridy = 0;
-		panel_11.add(textArea, gbc_textArea);
+		JTextArea txtANotes = new JTextArea();
+		GridBagConstraints gbc_txtANotes = new GridBagConstraints();
+		gbc_txtANotes.gridwidth = 2;
+		gbc_txtANotes.fill = GridBagConstraints.BOTH;
+		gbc_txtANotes.gridx = 0;
+		gbc_txtANotes.gridy = 0;
+		panel_11.add(txtANotes, gbc_txtANotes);
 		
-		JButton btnNewButton = new JButton("Cancel");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 1;
-		frame.getContentPane().add(btnNewButton, gbc_btnNewButton);
+		JButton btnRegister = new JButton("Register Patient");
+		btnRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			String chi = txtCHI.getText();
+			String firstName = txtName.getText();
+			String surname = "test";
+			String address = "test address";
+			String contactNumber = txtPhone1.getText();
+			String medicalCondition = "Test condition";
+			
+				
+				
+				
+			//String cHINumber, String firstName, String surName, String address, String contactNumber, String medicalCondition
+			Patient patient = new Patient(chi, firstName, surname, address, contactNumber, medicalCondition);	
+				controller.addPatient(patient);
+			}
+		});
+		GridBagConstraints gbc_btnRegister = new GridBagConstraints();
+		gbc_btnRegister.insets = new Insets(0, 0, 0, 5);
+		gbc_btnRegister.gridx = 0;
+		gbc_btnRegister.gridy = 1;
+		frame.getContentPane().add(btnRegister, gbc_btnRegister);
 		
-		JButton btnNewButton_1 = new JButton("Submit Incident");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnIncident = new JButton("Submit Incident");
+		btnIncident.addActionListener(new ActionListener() {
+			//TODO add data validation
 			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				String notes = txtANotes.getText();
+				
+				
+				
+				Incident incident = new Incident(selectedPatient, sqlDate, notes);
+				
+				controller.addIncident(incident);
+				
 				
 				AmbulanceFinderView.NewScreen();
 				
@@ -690,10 +533,38 @@ public class OperatorView {
 				
 			}
 		});
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.gridx = 1;
-		gbc_btnNewButton_1.gridy = 1;
-		frame.getContentPane().add(btnNewButton_1, gbc_btnNewButton_1);
+		
+		JButton btnSearch = new JButton("Patient Search");
+		btnSearch.addActionListener(new ActionListener() {
+			//TODO Add input validation
+			public void actionPerformed(ActionEvent arg0) {
+				String chi = txtCHI.getText();
+	
+				
+				
+				selectedPatient = controller.findPatient(chi);
+				
+				 
+				txtName.setText(selectedPatient.getFirstName());
+				txtPhone1.setText(selectedPatient.getContactNumber());
+				
+				
+				 
+				 
+				 
+				
+				
+			}
+		});
+		GridBagConstraints gbc_btnSearch = new GridBagConstraints();
+		gbc_btnSearch.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSearch.gridx = 1;
+		gbc_btnSearch.gridy = 1;
+		frame.getContentPane().add(btnSearch, gbc_btnSearch);
+		GridBagConstraints gbc_btnIncident = new GridBagConstraints();
+		gbc_btnIncident.gridx = 2;
+		gbc_btnIncident.gridy = 1;
+		frame.getContentPane().add(btnIncident, gbc_btnIncident);
 	}
 
 }

@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
+
+import controller.Controller;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
@@ -15,8 +18,9 @@ import java.awt.event.ActionEvent;
 public class PatientSearchView {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtCHI;
+	private JTextField txtAddress;
+	public Controller controller = new Controller();
 
 	/**
 	 * Launch the application.
@@ -62,14 +66,14 @@ public class PatientSearchView {
 		gbc_lblNewLabel.gridy = 2;
 		frame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 4;
-		gbc_textField.gridy = 2;
-		frame.getContentPane().add(textField, gbc_textField);
-		textField.setColumns(10);
+		txtCHI = new JTextField();
+		GridBagConstraints gbc_txtCHI = new GridBagConstraints();
+		gbc_txtCHI.insets = new Insets(0, 0, 5, 0);
+		gbc_txtCHI.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtCHI.gridx = 4;
+		gbc_txtCHI.gridy = 2;
+		frame.getContentPane().add(txtCHI, gbc_txtCHI);
+		txtCHI.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Address");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -78,20 +82,31 @@ public class PatientSearchView {
 		gbc_lblNewLabel_1.gridy = 4;
 		frame.getContentPane().add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 4;
-		gbc_textField_1.gridy = 4;
-		frame.getContentPane().add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		txtAddress = new JTextField();
+		GridBagConstraints gbc_txtAddress = new GridBagConstraints();
+		gbc_txtAddress.insets = new Insets(0, 0, 5, 0);
+		gbc_txtAddress.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtAddress.gridx = 4;
+		gbc_txtAddress.gridy = 4;
+		frame.getContentPane().add(txtAddress, gbc_txtAddress);
+		txtAddress.setColumns(10);
 		
-		JButton btnNewButton = new JButton("New button");
+		JButton btnNewButton = new JButton("Search");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//execute find patient
+				
+				String chi = txtCHI.getText();
+				
+				System.out.println(chi);
+			controller.findPatient(chi);
 			
+			
+			
+			
+				
+				
+				
+				
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
