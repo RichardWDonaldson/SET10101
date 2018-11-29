@@ -2,39 +2,60 @@ package model;
 
 public class Ambulance {
 
-	private String id;
-
-private Paramedic driver;
-private Paramedic support;
-public Ambulance(String id, Paramedic driver, Paramedic support) {
+	private int id;
+private String type;
+private String driver;
+private String support;
+private String location;
+public Ambulance(int id, String type, String driver, String support, String location) {
 	super();
 	this.id = id;
+	this.type = type;
 	this.driver = driver;
 	this.support = support;
+	this.location = location;
 }
-public String getId() {
+public int getId() {
 	return id;
 }
-public void setId(String id) {
+public void setId(int id) {
 	this.id = id;
 }
-public Paramedic getDriver() {
+public String getType() {
+	return type;
+}
+public void setType(String type) {
+	this.type = type;
+}
+public String getDriver() {
 	return driver;
 }
-public void setDriver(Paramedic driver) {
+public void setDriver(String driver) {
 	this.driver = driver;
 }
-public Paramedic getSupport() {
+public String getSupport() {
 	return support;
 }
-public void setSupport(Paramedic support) {
+public void setSupport(String support) {
 	this.support = support;
 }
-@Override
-public String toString() {
-	return "Ambulance [id=" + id + ", driver=" + driver + ", support=" + support + "]";
+public String getLocation() {
+	return location;
+}
+public void setLocation(String location) {
+	this.location = location;
 }
 
+//TODO clean toString()
+@Override
+public String toString() {
+	
+	String s = "Ambulance ID: " + id + "Type: " + type + "Location: " + location;
+	
+	return s;
+	
+	
+}
 
 
 

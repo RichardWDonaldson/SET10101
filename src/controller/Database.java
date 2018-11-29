@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 
 public class Database {
 
@@ -38,7 +40,7 @@ public class Database {
 		
 			
 			} catch(Exception e){ 
-				
+				JOptionPane.showMessageDialog(null, "Error connecting to Database - Please contact System Administrator", "Critical Error", 0);
 				System.out.println(e);
 			}  
 		
@@ -58,6 +60,12 @@ public class Database {
 	}
 	
 	public Connection getConnection() {
+		if(con == null) {
+			openConnection();
+		}
+		
+		
+		
 		return con;
 	}
 	

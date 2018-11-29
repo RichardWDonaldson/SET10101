@@ -103,7 +103,8 @@ public class SelectorView {
 		JButton btnNewButton_2 = new JButton("PDA View");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PDAView.NewScreen();
+				//PDAView.NewScreen();
+				LoginDialog login = new LoginDialog();
 				
 			}
 		});

@@ -5,14 +5,26 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.GridBagLayout;
 import javax.swing.JList;
+
+import model.Ambulance;
+import model.Incident;
+import model.Model;
+import model.Request;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import controller.Controller;
 
 public class AmbulanceFinderView {
-
+ArrayList<Ambulance> ambulance = new ArrayList<Ambulance>();
+Controller controller = new Controller();
+static Incident selectedIncident;
+Model model = new Model();
 	private JFrame frame;
 
 	/**
@@ -31,13 +43,15 @@ public class AmbulanceFinderView {
 //		});
 //	}
 	
-	public static void NewScreen() {
+	public static void NewScreen(Incident incident) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AmbulanceFinderView window = new AmbulanceFinderView();
+					
+					
+					AmbulanceFinderView window = new AmbulanceFinderView(incident);
 					window.frame.setVisible(true);
-					//Controller.initialize();
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -49,9 +63,18 @@ public class AmbulanceFinderView {
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public AmbulanceFinderView() {
+	public AmbulanceFinderView(Incident incident) throws IOException {
+		
+		System.out.println("Opening Ambulance Finder View");
+		selectedIncident = incident;
+		System.out.println(selectedIncident.toString());
+		controller.initialize();
+		ambulance = controller.getAmbulance();
+		
 		initialize();
+		
 	}
 
 	/**
@@ -68,7 +91,9 @@ public class AmbulanceFinderView {
 		gridBagLayout.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
-		JList list = new JList();
+		JList<Object> list = new JList<Object>(ambulance.toArray());
+		
+		
 		GridBagConstraints gbc_list = new GridBagConstraints();
 		gbc_list.gridheight = 2;
 		gbc_list.insets = new Insets(0, 0, 0, 5);
@@ -79,7 +104,19 @@ public class AmbulanceFinderView {
 		
 		JButton btnNewButton = new JButton("Send Request");
 		btnNewButton.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent arg0) {
+				
+				Ambulance selectedAmbulance = (Ambulance) list.getSelectedValue();
+	
+				System.out.println(selectedAmbulance.toString() + "\n\n" + selectedIncident.toString());
+				
+				Request request = new Request(selectedAmbulance, selectedIncident);
+				
+				controller.addRequest(request);
+
+				frame.dispose();
+				
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -89,6 +126,11 @@ public class AmbulanceFinderView {
 		frame.getContentPane().add(btnNewButton, gbc_btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Cancel");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+			}
+		});
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.gridx = 1;
 		gbc_btnNewButton_1.gridy = 1;

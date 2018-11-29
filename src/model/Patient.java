@@ -1,78 +1,135 @@
 package model;
 
+import java.sql.Date;
+
 public class Patient {
 	
-	private String CHINumber;
-	private String firstName;
-private String surName;
-private String Address;
-private String contactNumber;
-private String medicalCondition;
+	private String chiNumber;
+	private String name;
+	private String dob;
+	private String gender;
+	private String phone1;
+	private String phone2;
+	private String houseNumber;
+	private String line1;
+	private String line2;
+	private String town;
+	private String postcode;
+	
+	public Patient(String chiNumber, String name, String dob, String gender, String phone1, String phone2,
+			String houseNumber, String line1, String line2, String town, String postcode) {
+		super();
+		this.chiNumber = chiNumber;
+		this.name = name;
+		this.dob = dob;
+		this.gender = gender;
+		this.phone1 = phone1;
+		this.phone2 = phone2;
+		this.houseNumber = houseNumber;
+		this.line1 = line1;
+		this.line2 = line2;
+		this.town = town;
+		this.postcode = postcode;
+	}
 
-public Patient(String cHINumber, String firstName, String surName, String address, String contactNumber,
-		String medicalCondition) {
-	super();
-	CHINumber = cHINumber;
-	this.firstName = firstName;
-	this.surName = surName;
-	Address = address;
-	this.contactNumber = contactNumber;
-	this.medicalCondition = medicalCondition;
-}
+	public String getChiNumber() {
+		return chiNumber;
+	}
 
-public String getCHINumber() {
-	return CHINumber;
-}
+	public void setChiNumber(String chiNumber) {
+		this.chiNumber = chiNumber;
+	}
 
-public void setCHINumber(String cHINumber) {
-	CHINumber = cHINumber;
-}
+	public String getName() {
+		return name;
+	}
 
-public String getFirstName() {
-	return firstName;
-}
+	public void setName(String name) {
+		this.name = name;
+	}
 
-public void setFirstName(String firstName) {
-	this.firstName = firstName;
-}
+	public String getDob() {
+		return dob;
+	}
 
-public String getSurName() {
-	return surName;
-}
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
 
-public void setSurName(String surName) {
-	this.surName = surName;
-}
+	public String getGender() {
+		return gender;
+	}
 
-public String getAddress() {
-	return Address;
-}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
-public void setAddress(String address) {
-	Address = address;
-}
+	public String getPhone1() {
+		return phone1;
+	}
 
-public String getContactNumber() {
-	return contactNumber;
-}
+	public void setPhone1(String phone1) {
+		this.phone1 = phone1;
+	}
 
-public void setContactNumber(String contactNumber) {
-	this.contactNumber = contactNumber;
-}
+	public String getPhone2() {
+		return phone2;
+	}
 
-public String getMedicalCondition() {
-	return medicalCondition;
-}
+	public void setPhone2(String phone2) {
+		this.phone2 = phone2;
+	}
 
-public void setMedicalCondition(String medicalCondition) {
-	this.medicalCondition = medicalCondition;
-}
+	public String getHouseNumber() {
+		return houseNumber;
+	}
 
-@Override
-public String toString() {
-	return "Patient [CHINumber=" + CHINumber + ", firstName=" + firstName + ", surName=" + surName + ", Address="
-			+ Address + ", contactNumber=" + contactNumber + ", medicalCondition=" + medicalCondition + "]";
-}
+	public void setHouseNumber(String houseNumber) {
+		this.houseNumber = houseNumber;
+	}
+
+	public String getLine1() {
+		return line1;
+	}
+
+	public void setLine1(String line1) {
+		this.line1 = line1;
+	}
+
+	public String getLine2() {
+		return line2;
+	}
+
+	public void setLine2(String line2) {
+		this.line2 = line2;
+	}
+
+	public String getTown() {
+		return town;
+	}
+
+	public void setTown(String town) {
+		this.town = town;
+	}
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+	
+	//TODO Clean up ToString()
+	@Override
+	public String toString() {
+		return "Patient [chiNumber=" + chiNumber + ", name=" + name + ", dob=" + dob + ", gender=" + gender
+				+ ", phone1=" + phone1 + ", phone2=" + phone2 + ", houseNumber=" + houseNumber + ", line1=" + line1
+				+ ", line2=" + line2 + ", town=" + town + ", postcode=" + postcode + "]";
+	}
+
+	
 
 
 

@@ -4,14 +4,15 @@ import java.util.Date;
 
 public class Incident {
 
-	
+	private int id;
 	private Patient patient;
 	private Date date;
 	
 	private String notes;
 
-	public Incident(Patient patient, Date date, String notes) {
+	public Incident(int id, Patient patient, Date date, String notes) {
 		super();
+		this.id = id;
 		this.patient = patient;
 		this.date = date;
 		this.notes = notes;
@@ -25,6 +26,16 @@ public class Incident {
 		this.patient = patient;
 	}
 
+	public int getId() {
+		return id;
+	}
+	
+	public void setId (int id) {
+		this.id = id;
+	}
+	
+	
+	
 	public Date getDate() {
 		return date;
 	}
@@ -40,11 +51,13 @@ public class Incident {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-
+//TODO clean Tostring()
 	@Override
 	public String toString() {
-		return "Incident [patient=" + patient + ", date=" + date + ", notes=" + notes + "]";
+		return "Incident [id=" + id + ", patient=" + patient + ", date=" + date + ", notes=" + notes + "]";
 	}
+
+
 	
 	
 	

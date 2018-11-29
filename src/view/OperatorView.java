@@ -10,11 +10,14 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JSplitPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.border.TitledBorder;
 
 import controller.Controller;
@@ -28,6 +31,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
+//TODO Add the rest of the fields into the database and into the update and insertion
 
 public class OperatorView {
 
@@ -36,15 +40,14 @@ public class OperatorView {
 	private JTextField txtName;
 	private JTextField txtDOB;
 	private JTextField txtGender;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
-	private JTextField textField_13;
+	private JTextField txtHouseNumber;
+	private JTextField txtLine1;
+	private JTextField txtLine2;
+	private JTextField txtTown;
+	private JTextField txtPostcode;
 	private JTextField txtPhone1;
 	private JTextField txtPhone2;
 	private JTextField txtDate;
-	private JTextField txtTime;
 	String lastCrawlDate = "2014-01-28";
 	Controller controller = new Controller();
 	Date utilDate;
@@ -293,14 +296,14 @@ public class OperatorView {
 		gbc_lblNewLabel_4.gridy = 0;
 		panel_4.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
-		textField_9 = new JTextField();
-		GridBagConstraints gbc_textField_9 = new GridBagConstraints();
-		gbc_textField_9.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_9.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_9.gridx = 1;
-		gbc_textField_9.gridy = 0;
-		panel_4.add(textField_9, gbc_textField_9);
-		textField_9.setColumns(10);
+		txtHouseNumber = new JTextField();
+		GridBagConstraints gbc_txtHouseNumber = new GridBagConstraints();
+		gbc_txtHouseNumber.insets = new Insets(0, 0, 5, 0);
+		gbc_txtHouseNumber.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtHouseNumber.gridx = 1;
+		gbc_txtHouseNumber.gridy = 0;
+		panel_4.add(txtHouseNumber, gbc_txtHouseNumber);
+		txtHouseNumber.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Line 1");
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
@@ -310,14 +313,14 @@ public class OperatorView {
 		gbc_lblNewLabel_5.gridy = 1;
 		panel_4.add(lblNewLabel_5, gbc_lblNewLabel_5);
 		
-		textField_10 = new JTextField();
-		GridBagConstraints gbc_textField_10 = new GridBagConstraints();
-		gbc_textField_10.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_10.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_10.gridx = 1;
-		gbc_textField_10.gridy = 1;
-		panel_4.add(textField_10, gbc_textField_10);
-		textField_10.setColumns(10);
+		txtLine1 = new JTextField();
+		GridBagConstraints gbc_txtLine1 = new GridBagConstraints();
+		gbc_txtLine1.insets = new Insets(0, 0, 5, 0);
+		gbc_txtLine1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtLine1.gridx = 1;
+		gbc_txtLine1.gridy = 1;
+		panel_4.add(txtLine1, gbc_txtLine1);
+		txtLine1.setColumns(10);
 		
 		JLabel lblNewLabel_6 = new JLabel("Line 2");
 		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
@@ -327,14 +330,14 @@ public class OperatorView {
 		gbc_lblNewLabel_6.gridy = 2;
 		panel_4.add(lblNewLabel_6, gbc_lblNewLabel_6);
 		
-		textField_11 = new JTextField();
-		GridBagConstraints gbc_textField_11 = new GridBagConstraints();
-		gbc_textField_11.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_11.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_11.gridx = 1;
-		gbc_textField_11.gridy = 2;
-		panel_4.add(textField_11, gbc_textField_11);
-		textField_11.setColumns(10);
+		txtLine2 = new JTextField();
+		GridBagConstraints gbc_txtLine2 = new GridBagConstraints();
+		gbc_txtLine2.insets = new Insets(0, 0, 5, 0);
+		gbc_txtLine2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtLine2.gridx = 1;
+		gbc_txtLine2.gridy = 2;
+		panel_4.add(txtLine2, gbc_txtLine2);
+		txtLine2.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("Town");
 		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
@@ -344,14 +347,14 @@ public class OperatorView {
 		gbc_lblNewLabel_7.gridy = 3;
 		panel_4.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		
-		textField_12 = new JTextField();
-		GridBagConstraints gbc_textField_12 = new GridBagConstraints();
-		gbc_textField_12.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_12.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_12.gridx = 1;
-		gbc_textField_12.gridy = 3;
-		panel_4.add(textField_12, gbc_textField_12);
-		textField_12.setColumns(10);
+		txtTown = new JTextField();
+		GridBagConstraints gbc_txtTown = new GridBagConstraints();
+		gbc_txtTown.insets = new Insets(0, 0, 5, 0);
+		gbc_txtTown.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtTown.gridx = 1;
+		gbc_txtTown.gridy = 3;
+		panel_4.add(txtTown, gbc_txtTown);
+		txtTown.setColumns(10);
 		
 		JLabel lblNewLabel_8 = new JLabel("Postcode");
 		GridBagConstraints gbc_lblNewLabel_8 = new GridBagConstraints();
@@ -361,13 +364,13 @@ public class OperatorView {
 		gbc_lblNewLabel_8.gridy = 4;
 		panel_4.add(lblNewLabel_8, gbc_lblNewLabel_8);
 		
-		textField_13 = new JTextField();
-		GridBagConstraints gbc_textField_13 = new GridBagConstraints();
-		gbc_textField_13.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_13.gridx = 1;
-		gbc_textField_13.gridy = 4;
-		panel_4.add(textField_13, gbc_textField_13);
-		textField_13.setColumns(10);
+		txtPostcode = new JTextField();
+		GridBagConstraints gbc_txtPostcode = new GridBagConstraints();
+		gbc_txtPostcode.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtPostcode.gridx = 1;
+		gbc_txtPostcode.gridy = 4;
+		panel_4.add(txtPostcode, gbc_txtPostcode);
+		txtPostcode.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Incident Details", null, panel_1, null);
@@ -435,22 +438,6 @@ public class OperatorView {
 		
 		txtDate.setText(sqlDate.toString());
 		
-		JLabel lblNewLabel_15 = new JLabel("Time");
-		GridBagConstraints gbc_lblNewLabel_15 = new GridBagConstraints();
-		gbc_lblNewLabel_15.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_15.insets = new Insets(0, 0, 0, 5);
-		gbc_lblNewLabel_15.gridx = 0;
-		gbc_lblNewLabel_15.gridy = 1;
-		panel_10.add(lblNewLabel_15, gbc_lblNewLabel_15);
-		
-		txtTime = new JTextField();
-		GridBagConstraints gbc_txtTime = new GridBagConstraints();
-		gbc_txtTime.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtTime.gridx = 1;
-		gbc_txtTime.gridy = 1;
-		panel_10.add(txtTime, gbc_txtTime);
-		txtTime.setColumns(10);
-		
 		JPanel panel_12 = new JPanel();
 		panel_12.setBorder(new TitledBorder(null, "Notes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_panel_12 = new GridBagConstraints();
@@ -488,21 +475,19 @@ public class OperatorView {
 		
 		JButton btnRegister = new JButton("Register Patient");
 		btnRegister.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			String chi = txtCHI.getText();
-			String firstName = txtName.getText();
-			String surname = "test";
-			String address = "test address";
-			String contactNumber = txtPhone1.getText();
-			String medicalCondition = "Test condition";
 			
-				
-				
-				
-			//String cHINumber, String firstName, String surName, String address, String contactNumber, String medicalCondition
-			Patient patient = new Patient(chi, firstName, surname, address, contactNumber, medicalCondition);	
-				controller.addPatient(patient);
+			public void actionPerformed(ActionEvent arg0) {
+			
+			Patient patient = getPatientInput();	
+			
+			Boolean Success = controller.addPatient(patient);
+			
+			if(Success == true) {
+				selectedPatient = patient;
+			} else {
+				JOptionPane.showMessageDialog(null, "Error in patient Registration", "Input Error", 0);
+			}
+			
 			}
 		});
 		GridBagConstraints gbc_btnRegister = new GridBagConstraints();
@@ -519,18 +504,42 @@ public class OperatorView {
 				
 				
 				String notes = txtANotes.getText();
+				if(notes.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No incident notes added", "Input Error", 0);
+				return;
+
+				} else if (selectedPatient == null) {
+					JOptionPane.showMessageDialog(null, "No patient has been selected", "Input Error", 0);
+					return;
+				}
 				
 				
+				else {
+					
+					int size = (controller.getSize() + 1);
+					System.out.println(size);
+					
+					
+					
+					
+					Incident incident = new Incident(size, selectedPatient, sqlDate, notes);
 				
-				Incident incident = new Incident(selectedPatient, sqlDate, notes);
+					
+				boolean success = controller.addIncident(incident);
+					if(success) { 
+						AmbulanceFinderView.NewScreen(incident);
+						clearView();
+						
+						
+						
+					} else {
+				//Do Nothing 
+					}
+					
+					
+				}
 				
-				controller.addIncident(incident);
-				
-				
-				AmbulanceFinderView.NewScreen();
-				
-				
-				
+					
 			}
 		});
 		
@@ -539,21 +548,31 @@ public class OperatorView {
 			//TODO Add input validation
 			public void actionPerformed(ActionEvent arg0) {
 				String chi = txtCHI.getText();
-	
 				
-				
-				selectedPatient = controller.findPatient(chi);
-				
-				 
-				txtName.setText(selectedPatient.getFirstName());
-				txtPhone1.setText(selectedPatient.getContactNumber());
-				
-				
-				 
-				 
-				 
-				
-				
+				if ( (chi.isEmpty()) || (!chi.matches("[0-9]+")) || (chi.length() > 10) ) {
+					JOptionPane.showMessageDialog(null, "Invalid CHI Number, please re-enter", "Input Error", 0);
+					return;
+				} else {
+					
+					selectedPatient = controller.findPatient(chi);
+					
+					if(selectedPatient == null) {
+						int result = JOptionPane.showConfirmDialog(null, "Do you wish to Register a New User?", "No Patient Found", 0);
+						if(result == JOptionPane.YES_OPTION) {
+//						setPanelEnabled(panel_2, true);
+//						setPanelEnabled(panel_4, true);
+						} else {
+							//Do Nothing
+						}
+					
+					} else {
+						
+						populateFields(selectedPatient);
+		
+					}
+					
+				}
+ 	
 			}
 		});
 		GridBagConstraints gbc_btnSearch = new GridBagConstraints();
@@ -566,5 +585,76 @@ public class OperatorView {
 		gbc_btnIncident.gridy = 1;
 		frame.getContentPane().add(btnIncident, gbc_btnIncident);
 	}
+	
+//	void setPanelEnabled(JPanel panel, Boolean isEnabled) {
+//	    panel.setEnabled(isEnabled);
+//
+//	    Component[] components = panel.getComponents();
+//
+//	    for (Component component : components) {
+//	        if (component instanceof JPanel) {
+//	            setPanelEnabled((JPanel) component, isEnabled);
+//	        }
+//	        component.setEnabled(isEnabled);
+//	    }
+//	}
+	
+	public void populateFields(Patient patient) {
+		
+		txtName.setText(patient.getName());
+		txtDOB.setText(patient.getDob());
+		txtGender.setText(patient.getGender());
+		txtPhone1.setText(patient.getPhone1());
+		txtPhone2.setText(patient.getPhone2());
+		txtHouseNumber.setText(patient.getHouseNumber());
+		txtLine1.setText(patient.getLine1());
+		txtLine2.setText(patient.getLine2());
+		txtTown.setText(patient.getTown());
+		txtPostcode.setText(patient.getPostcode());
+		
+	}
+	
+	public Patient getPatientInput() {
+		String chi = txtCHI.getText();
+		String name = txtName.getText();
+		String dob = txtDOB.getText();
+		String gender = txtGender.getText();
+		String phone1 = txtPhone1.getText();
+		String phone2 = txtPhone2.getText();
+		String houseNumber = txtHouseNumber.getText();
+		String line1 = txtLine1.getText();
+		String line2 = txtLine2.getText();
+		String town = txtTown.getText();
+		String postcode = txtPostcode.getText();
+		
+		
+		
+		
+		Patient patient = new Patient(chi, name,dob , gender, phone1, phone2, houseNumber, line1, line2, town, postcode );	
+	
+		
+		return patient;
+		
+		
+	}
+	
+	public void clearView() {
+		txtName.setText("");
+		txtDOB.setText("");
+		txtGender.setText("");
+		txtPhone1.setText("");
+		txtPhone2.setText("");
+		txtHouseNumber.setText("");
+		txtLine1.setText("");
+		txtLine2.setText("");
+		txtTown.setText("");
+		txtPostcode.setText("");
+		
+		
+		
+	}
+	
+	
+	
 
 }
