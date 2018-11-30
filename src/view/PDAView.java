@@ -457,10 +457,10 @@ public class PDAView {
 				//Request, notes, hospital
 				Response response = new Response(selectedRequest, strResponse, selectedHospital);
 				System.out.println("Response created");
-				System.out.println(response.toString());
+				System.out.println("This is the responce" + response.toString());	
 				
 				//TODO add responce to controller
-				//controller.addResponce(responce);
+				controller.addResponce(response);
 				
 				
 			}

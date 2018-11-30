@@ -5,15 +5,20 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+
+import controller.Controller;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class SelectorView {
 
 	private JFrame frame;
+	Controller controller = new Controller();
 
 	/**
 	 * Launch the application.
@@ -33,8 +38,10 @@ public class SelectorView {
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public SelectorView() {
+	public SelectorView() throws IOException {
+	controller.initialize();
 		initialize();
 	}
 

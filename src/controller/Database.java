@@ -23,9 +23,10 @@ public class Database {
 		DB_URL = "jdbc:mysql://localhost:3306/Kwikmedical";
 		USER = "Java";
 		PASS = "Password";
-		con = null;
+	
 		
 		openConnection();
+
 	}
 	
 	
@@ -60,11 +61,17 @@ public class Database {
 	}
 	
 	public Connection getConnection() {
-		if(con == null) {
+		try {
+		if(con.isClosed()) {
 			openConnection();
 		}
 		
 		
+		}catch(NullPointerException ex) {
+			ex.printStackTrace();
+		} catch(SQLException ex2) {
+			ex2.printStackTrace();
+		}
 		
 		return con;
 	}

@@ -20,8 +20,8 @@ import model.Response;
 
 public class Controller {
 	
-	Database database;
-	Connection con;
+	Database database = new Database();
+	Connection con = database.getConnection();
 	Controller controller;
 	
 	ArrayList<Request> requests = new ArrayList<Request>();
@@ -210,6 +210,7 @@ public class Controller {
 			 
 		if(i > 0) {
 			System.out.println("Update Sucessful");
+			database.closeConnection();
 			return true;
 		} else {
 			System.out.println("Failure, try again");
@@ -225,6 +226,7 @@ public class Controller {
 		} catch (NullPointerException ex) {
 			JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
 		}
+//		database.closeConnection();
 		return false;
 		
 		
@@ -254,7 +256,7 @@ public class Controller {
 				JOptionPane.showMessageDialog(null, "Input/Output error: Contact System Admin", "Critical Error", 0);
 				ex.printStackTrace();
 			}
-		
+	//	database.closeConnection();
 		return ambulance;
 		
 		
@@ -309,13 +311,14 @@ public class Controller {
 				ex.printStackTrace();
 			}
 		
-		
+	//	database.closeConnection();
 		return requests;
 	}
 	
 	
 	public Incident getIncident(int id) {
 		try {
+			System.out.println("getIncident");
 			con = database.getConnection();
 			Statement stmt=con.createStatement();
 			
@@ -353,7 +356,7 @@ public class Controller {
 	}
 	
 	public int getSize() {
-		
+		System.out.println("getSize");
 		
 		
 		try {
@@ -362,19 +365,21 @@ public class Controller {
 			
 			ResultSet rs =stmt.executeQuery("SELECT LAST_INSERT_ID()");
 			while(rs.next()) {
+				database.closeConnection();
 			return rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		database.closeConnection();
 		return 0;
 
 		
 	}
 	
 	public ArrayList<Hospital> getHospitals() {
+		System.out.println("getHospital");
 		
 		ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
 		
@@ -396,27 +401,31 @@ public class Controller {
 		}catch(SQLException ex) {
 			ex.printStackTrace();
 		}
-		
+	//	database.closeConnection();
 		return hospitals;
 	}
 	
 	public boolean addResponce(Response response) {
 	
-		try {
-			con = database.getConnection();
+		System.out.println("addResponse");
+		
+			try {
+	
+				con = database.getConnection();
 			Statement stmt = con.createStatement();
 				
 			
-		int i = stmt.executeUpdate("insert into responserecord (incident_id, hospital_id, notes ) values (" 
+		int i = stmt.executeUpdate("insert into responserecords (incident_id, hospital_id, notes ) values (" 
 		+ response.getRequest().getIncident().getId() 
 		+ ", " 
 		+ response.getHospital().getHospitalID() 
 		+ ", " 
-		+ response.getResponceNotes()
+		+ "'" + response.getResponceNotes() + "'"
 		+ ")");
 		
 		if(i > 0) {
 			System.out.println("Update Sucessful");
+			database.closeConnection();
 			return true;
 		} else {
 			System.out.println("Failure, try again");
@@ -428,8 +437,11 @@ public class Controller {
 		
 		}catch(SQLException ex) {
 			ex.printStackTrace();
+		} catch(NullPointerException ex2) {
+			ex2.printStackTrace();
 		}
-		return false;
+			database.closeConnection();
+		return false;	
 		
 	}
 	
