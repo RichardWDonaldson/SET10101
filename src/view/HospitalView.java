@@ -11,22 +11,29 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import model.Hospital;
+
 import javax.swing.JList;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class HospitalView {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
+	private JTextField txtCHI;
+	private JTextField txtHouseNumber;
+	private JTextField txtName;
+	private JTextField txtDOB;
+	private JTextField txtGender;
+	private JTextField txtPhone1;
+	private JTextField txtPhone2;
+	private JTextField txtLine1;
+	private JTextField txtLine2;
+	private JTextField txtTown;
+	private JTextField txtPostcode;
+
+	Hospital selectedHospital;
 
 	/**
 	 * Launch the application.
@@ -109,14 +116,14 @@ public class HospitalView {
 		gbc_lblNewLabel.gridy = 1;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 1;
-		panel.add(textField, gbc_textField);
-		textField.setColumns(10);
+		txtCHI = new JTextField();
+		GridBagConstraints gbc_txtCHI = new GridBagConstraints();
+		gbc_txtCHI.insets = new Insets(0, 0, 5, 5);
+		gbc_txtCHI.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtCHI.gridx = 1;
+		gbc_txtCHI.gridy = 1;
+		panel.add(txtCHI, gbc_txtCHI);
+		txtCHI.setColumns(10);
 		
 		JLabel lblNewLabel_6 = new JLabel("New label");
 		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
@@ -126,14 +133,14 @@ public class HospitalView {
 		gbc_lblNewLabel_6.gridy = 1;
 		panel.add(lblNewLabel_6, gbc_lblNewLabel_6);
 		
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 3;
-		gbc_textField_1.gridy = 1;
-		panel.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		txtHouseNumber = new JTextField();
+		GridBagConstraints gbc_txtHouseNumber = new GridBagConstraints();
+		gbc_txtHouseNumber.insets = new Insets(0, 0, 5, 0);
+		gbc_txtHouseNumber.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtHouseNumber.gridx = 3;
+		gbc_txtHouseNumber.gridy = 1;
+		panel.add(txtHouseNumber, gbc_txtHouseNumber);
+		txtHouseNumber.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("New label");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -143,14 +150,14 @@ public class HospitalView {
 		gbc_lblNewLabel_1.gridy = 2;
 		panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField_2 = new JTextField();
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.gridx = 1;
-		gbc_textField_2.gridy = 2;
-		panel.add(textField_2, gbc_textField_2);
-		textField_2.setColumns(10);
+		txtName = new JTextField();
+		GridBagConstraints gbc_txtName = new GridBagConstraints();
+		gbc_txtName.insets = new Insets(0, 0, 5, 5);
+		gbc_txtName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtName.gridx = 1;
+		gbc_txtName.gridy = 2;
+		panel.add(txtName, gbc_txtName);
+		txtName.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("New label");
 		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
@@ -160,14 +167,14 @@ public class HospitalView {
 		gbc_lblNewLabel_7.gridy = 2;
 		panel.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		
-		textField_7 = new JTextField();
-		GridBagConstraints gbc_textField_7 = new GridBagConstraints();
-		gbc_textField_7.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_7.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_7.gridx = 3;
-		gbc_textField_7.gridy = 2;
-		panel.add(textField_7, gbc_textField_7);
-		textField_7.setColumns(10);
+		txtLine1 = new JTextField();
+		GridBagConstraints gbc_txtLine1 = new GridBagConstraints();
+		gbc_txtLine1.insets = new Insets(0, 0, 5, 0);
+		gbc_txtLine1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtLine1.gridx = 3;
+		gbc_txtLine1.gridy = 2;
+		panel.add(txtLine1, gbc_txtLine1);
+		txtLine1.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("New label");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -177,14 +184,14 @@ public class HospitalView {
 		gbc_lblNewLabel_2.gridy = 3;
 		panel.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		textField_3 = new JTextField();
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.gridx = 1;
-		gbc_textField_3.gridy = 3;
-		panel.add(textField_3, gbc_textField_3);
-		textField_3.setColumns(10);
+		txtDOB = new JTextField();
+		GridBagConstraints gbc_txtDOB = new GridBagConstraints();
+		gbc_txtDOB.insets = new Insets(0, 0, 5, 5);
+		gbc_txtDOB.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtDOB.gridx = 1;
+		gbc_txtDOB.gridy = 3;
+		panel.add(txtDOB, gbc_txtDOB);
+		txtDOB.setColumns(10);
 		
 		JLabel lblNewLabel_8 = new JLabel("New label");
 		GridBagConstraints gbc_lblNewLabel_8 = new GridBagConstraints();
@@ -194,14 +201,14 @@ public class HospitalView {
 		gbc_lblNewLabel_8.gridy = 3;
 		panel.add(lblNewLabel_8, gbc_lblNewLabel_8);
 		
-		textField_8 = new JTextField();
-		GridBagConstraints gbc_textField_8 = new GridBagConstraints();
-		gbc_textField_8.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_8.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_8.gridx = 3;
-		gbc_textField_8.gridy = 3;
-		panel.add(textField_8, gbc_textField_8);
-		textField_8.setColumns(10);
+		txtLine2 = new JTextField();
+		GridBagConstraints gbc_txtLine2 = new GridBagConstraints();
+		gbc_txtLine2.insets = new Insets(0, 0, 5, 0);
+		gbc_txtLine2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtLine2.gridx = 3;
+		gbc_txtLine2.gridy = 3;
+		panel.add(txtLine2, gbc_txtLine2);
+		txtLine2.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("New label");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
@@ -211,14 +218,14 @@ public class HospitalView {
 		gbc_lblNewLabel_3.gridy = 4;
 		panel.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
-		textField_4 = new JTextField();
-		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_4.gridx = 1;
-		gbc_textField_4.gridy = 4;
-		panel.add(textField_4, gbc_textField_4);
-		textField_4.setColumns(10);
+		txtGender = new JTextField();
+		GridBagConstraints gbc_txtGender = new GridBagConstraints();
+		gbc_txtGender.insets = new Insets(0, 0, 5, 5);
+		gbc_txtGender.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtGender.gridx = 1;
+		gbc_txtGender.gridy = 4;
+		panel.add(txtGender, gbc_txtGender);
+		txtGender.setColumns(10);
 		
 		JLabel lblNewLabel_9 = new JLabel("New label");
 		GridBagConstraints gbc_lblNewLabel_9 = new GridBagConstraints();
@@ -228,14 +235,14 @@ public class HospitalView {
 		gbc_lblNewLabel_9.gridy = 4;
 		panel.add(lblNewLabel_9, gbc_lblNewLabel_9);
 		
-		textField_9 = new JTextField();
-		GridBagConstraints gbc_textField_9 = new GridBagConstraints();
-		gbc_textField_9.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_9.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_9.gridx = 3;
-		gbc_textField_9.gridy = 4;
-		panel.add(textField_9, gbc_textField_9);
-		textField_9.setColumns(10);
+		txtTown = new JTextField();
+		GridBagConstraints gbc_txtTown = new GridBagConstraints();
+		gbc_txtTown.insets = new Insets(0, 0, 5, 0);
+		gbc_txtTown.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtTown.gridx = 3;
+		gbc_txtTown.gridy = 4;
+		panel.add(txtTown, gbc_txtTown);
+		txtTown.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("New label");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
@@ -245,14 +252,14 @@ public class HospitalView {
 		gbc_lblNewLabel_4.gridy = 5;
 		panel.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
-		textField_5 = new JTextField();
-		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_5.gridx = 1;
-		gbc_textField_5.gridy = 5;
-		panel.add(textField_5, gbc_textField_5);
-		textField_5.setColumns(10);
+		txtPhone1 = new JTextField();
+		GridBagConstraints gbc_txtPhone1 = new GridBagConstraints();
+		gbc_txtPhone1.insets = new Insets(0, 0, 5, 5);
+		gbc_txtPhone1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtPhone1.gridx = 1;
+		gbc_txtPhone1.gridy = 5;
+		panel.add(txtPhone1, gbc_txtPhone1);
+		txtPhone1.setColumns(10);
 		
 		JLabel lblNewLabel_10 = new JLabel("New label");
 		GridBagConstraints gbc_lblNewLabel_10 = new GridBagConstraints();
@@ -262,14 +269,14 @@ public class HospitalView {
 		gbc_lblNewLabel_10.gridy = 5;
 		panel.add(lblNewLabel_10, gbc_lblNewLabel_10);
 		
-		textField_10 = new JTextField();
-		GridBagConstraints gbc_textField_10 = new GridBagConstraints();
-		gbc_textField_10.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_10.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_10.gridx = 3;
-		gbc_textField_10.gridy = 5;
-		panel.add(textField_10, gbc_textField_10);
-		textField_10.setColumns(10);
+		txtPostcode = new JTextField();
+		GridBagConstraints gbc_txtPostcode = new GridBagConstraints();
+		gbc_txtPostcode.insets = new Insets(0, 0, 5, 0);
+		gbc_txtPostcode.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtPostcode.gridx = 3;
+		gbc_txtPostcode.gridy = 5;
+		panel.add(txtPostcode, gbc_txtPostcode);
+		txtPostcode.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("New label");
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
@@ -279,20 +286,47 @@ public class HospitalView {
 		gbc_lblNewLabel_5.gridy = 6;
 		panel.add(lblNewLabel_5, gbc_lblNewLabel_5);
 		
-		textField_6 = new JTextField();
-		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-		gbc_textField_6.insets = new Insets(0, 0, 0, 5);
-		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_6.gridx = 1;
-		gbc_textField_6.gridy = 6;
-		panel.add(textField_6, gbc_textField_6);
-		textField_6.setColumns(10);
+		txtPhone2 = new JTextField();
+		GridBagConstraints gbc_txtPhone2 = new GridBagConstraints();
+		gbc_txtPhone2.insets = new Insets(0, 0, 0, 5);
+		gbc_txtPhone2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtPhone2.gridx = 1;
+		gbc_txtPhone2.gridy = 6;
+		panel.add(txtPhone2, gbc_txtPhone2);
+		txtPhone2.setColumns(10);
 		
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Incidents", null, panel_2, null);
+		GridBagLayout gbl_panel_2 = new GridBagLayout();
+		gbl_panel_2.columnWidths = new int[]{286, 286, 1, 0};
+		gbl_panel_2.rowHeights = new int[]{1, 0, 0, 0};
+		gbl_panel_2.columnWeights = new double[]{1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
+		panel_2.setLayout(gbl_panel_2);
 		
 		JList list = new JList();
-		panel_2.add(list);
+		GridBagConstraints gbc_list = new GridBagConstraints();
+		gbc_list.insets = new Insets(0, 0, 5, 0);
+		gbc_list.anchor = GridBagConstraints.NORTHWEST;
+		gbc_list.gridx = 2;
+		gbc_list.gridy = 0;
+		panel_2.add(list, gbc_list);
+		
+		JList list_1 = new JList();
+		GridBagConstraints gbc_list_1 = new GridBagConstraints();
+		gbc_list_1.gridheight = 2;
+		gbc_list_1.insets = new Insets(0, 0, 0, 5);
+		gbc_list_1.fill = GridBagConstraints.BOTH;
+		gbc_list_1.gridx = 0;
+		gbc_list_1.gridy = 1;
+		panel_2.add(list_1, gbc_list_1);
+		
+		JButton btnViewIncident = new JButton("View Details");
+		GridBagConstraints gbc_btnViewIncident = new GridBagConstraints();
+		gbc_btnViewIncident.insets = new Insets(0, 0, 0, 5);
+		gbc_btnViewIncident.gridx = 1;
+		gbc_btnViewIncident.gridy = 2;
+		panel_2.add(btnViewIncident, gbc_btnViewIncident);
 		
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Medical notes", null, panel_3, null);
@@ -346,12 +380,18 @@ public class HospitalView {
 		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
-		JButton btnNewButton = new JButton("New button");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 2;
-		gbc_btnNewButton.gridy = 1;
-		panel_1.add(btnNewButton, gbc_btnNewButton);
+		JButton btnRequests = new JButton("Requests");
+		btnRequests.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				IncidentListView.NewScreen(selectedHospital);
+			}
+		});
+		GridBagConstraints gbc_btnRequests = new GridBagConstraints();
+		gbc_btnRequests.insets = new Insets(0, 0, 5, 5);
+		gbc_btnRequests.gridx = 2;
+		gbc_btnRequests.gridy = 1;
+		panel_1.add(btnRequests, gbc_btnRequests);
 		
 		JButton btnNewButton_1 = new JButton("New button");
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
@@ -367,12 +407,12 @@ public class HospitalView {
 		gbc_btnNewButton_2.gridy = 1;
 		panel_1.add(btnNewButton_2, gbc_btnNewButton_2);
 		
-		JButton btnNewButton_3 = new JButton("New button");
-		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
-		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton_3.gridx = 8;
-		gbc_btnNewButton_3.gridy = 1;
-		panel_1.add(btnNewButton_3, gbc_btnNewButton_3);
+		JButton btnUpdate = new JButton("Update");
+		GridBagConstraints gbc_btnUpdate = new GridBagConstraints();
+		gbc_btnUpdate.insets = new Insets(0, 0, 5, 0);
+		gbc_btnUpdate.gridx = 8;
+		gbc_btnUpdate.gridy = 1;
+		panel_1.add(btnUpdate, gbc_btnUpdate);
 	}
 
 }

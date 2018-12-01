@@ -7,22 +7,33 @@ import java.awt.GridBagLayout;
 import javax.swing.JList;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import controller.Controller;
+import model.Hospital;
+import model.Incident;
+import model.Response;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class IncidentListView {
 
 	private JFrame frame;
+	ArrayList<Response> responses = new ArrayList<Response>();
+	Controller controller = new Controller();
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void NewScreen(Hospital selectedHospital) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IncidentListView window = new IncidentListView();
+					IncidentListView window = new IncidentListView(selectedHospital);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +45,9 @@ public class IncidentListView {
 	/**
 	 * Create the application.
 	 */
-	public IncidentListView() {
+	public IncidentListView(Hospital selectedHospital) {
+	
+		responses = controller.getResponses(selectedHospital);
 		initialize();
 	}
 
@@ -68,14 +81,14 @@ public class IncidentListView {
 		gbl_panel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JList list = new JList();
+		JList<Object> listResponse = new JList<Object>(responses.toArray());
 		GridBagConstraints gbc_list = new GridBagConstraints();
 		gbc_list.fill = GridBagConstraints.BOTH;
 		gbc_list.gridwidth = 2;
 		gbc_list.insets = new Insets(0, 0, 0, 5);
 		gbc_list.gridx = 0;
 		gbc_list.gridy = 0;
-		panel.add(list, gbc_list);
+		panel.add(listResponse, gbc_list);
 		
 		JButton btnCancel = new JButton("Cancel");
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
@@ -85,6 +98,16 @@ public class IncidentListView {
 		frame.getContentPane().add(btnCancel, gbc_btnCancel);
 		
 		JButton btnNewButton_1 = new JButton("Select Incident");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Ambulance selectedAmbulance = (Ambulance) list.getSelectedValue();
+				
+				Incident selectedIncident = (Incident) listResponse.getSelectedValue();
+				
+				IncidentView.NewScreen();
+				
+			}
+		});
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.gridx = 1;
 		gbc_btnNewButton_1.gridy = 1;

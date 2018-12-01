@@ -445,8 +445,67 @@ public class Controller {
 		
 	}
 	
+	public Request getHospitalRequests(int id) {
+		
+		
+try {
+		con = database.getConnection();
+	Statement stmt = con.createStatement();
+		
+	ResultSet rs=stmt.executeQuery("select * from requestrecords where incident_id = " + id);  
+		
+		while(rs.next()) {
+		//Ambulance, Incident
+			Ambulance ambulance = getCurrentAmbulance(rs.getInt(2));
+			
+		Request request = new Request(null, null);	
+		}	
+} catch (SQLException e) {
+	e.printStackTrace();
+}
+		return request;
+	}
 	
 	
+	
+	
+	public ArrayList<Response> getResponses(Hospital selectedHospital) {
+		ArrayList<Response> responses = new ArrayList<Response>();
+		try { 
+			con = database.getConnection();
+			Statement stmt = con.createStatement();
+			
+			//incident id, hospital id, notes 
+			
+			ResultSet rs=stmt.executeQuery("select * from responserecords where hospital_id = " + selectedHospital.getHospitalID() );  
+			
+			while(rs.next()) {
+				
+			Request request =  getHospitalRequests(rs.getInt(2));
+			String notes = rs.getString(4);
+			
+			Response response = new Response(request, notes, selectedHospital);
+				
+			responses.add(response);
+			}
+			
+			
+			
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(NullPointerException ex) {
+			ex.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		return responses;
+		
+	}
 	
 	
 }
