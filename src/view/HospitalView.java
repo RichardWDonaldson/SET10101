@@ -14,15 +14,12 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import controller.Controller;
-import model.Ambulance;
 import model.Hospital;
 import model.Incident;
 import model.Response;
 
 import javax.swing.JList;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -46,6 +43,7 @@ public class HospitalView {
 
 	Hospital selectedHospital;
 	Response selectedResponse;
+	Incident selectedIncident;
 	ArrayList<Response> responses = new ArrayList<Response>();
 	ArrayList<Incident> incidents = new ArrayList<Incident>();
 	DefaultListModel<Incident> model = new DefaultListModel<Incident>();
@@ -53,20 +51,7 @@ public class HospitalView {
 Controller controller = new Controller();
 	/**
 	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					HospitalView window = new HospitalView();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-	
+	 */	
 	public static void NewScreen() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -86,8 +71,10 @@ Controller controller = new Controller();
 	
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public HospitalView() {
+	public HospitalView() throws IOException {
+		controller.initialize();
 		selectedHospital = controller.getCurrentHospital(100);
 		responses = controller.getResponses(selectedHospital);
 		initialize();
@@ -108,7 +95,7 @@ Controller controller = new Controller();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{578, 0};
-		gridBagLayout.rowHeights = new int[]{389, 243, 0};
+		gridBagLayout.rowHeights = new int[]{492, 243, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
@@ -122,11 +109,11 @@ Controller controller = new Controller();
 		frame.getContentPane().add(tabbedPane, gbc_tabbedPane);
 		
 		JPanel panel_4 = new JPanel();
-		tabbedPane.addTab("Follow up", null, panel_4, null);
+		tabbedPane.addTab("Pending Responses", null, panel_4, null);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
-		gbl_panel_4.columnWidths = new int[]{0, 0, 0};
+		gbl_panel_4.columnWidths = new int[]{457, 198, 0};
 		gbl_panel_4.rowHeights = new int[]{0, 0, 0};
-		gbl_panel_4.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_4.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_4.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		panel_4.setLayout(gbl_panel_4);
 		
@@ -191,7 +178,7 @@ Controller controller = new Controller();
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel("CHI");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
@@ -208,7 +195,7 @@ Controller controller = new Controller();
 		panel.add(txtCHI, gbc_txtCHI);
 		txtCHI.setColumns(10);
 		
-		JLabel lblNewLabel_6 = new JLabel("New label");
+		JLabel lblNewLabel_6 = new JLabel("House Number");
 		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
 		gbc_lblNewLabel_6.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
@@ -225,7 +212,7 @@ Controller controller = new Controller();
 		panel.add(txtHouseNumber, gbc_txtHouseNumber);
 		txtHouseNumber.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
+		JLabel lblNewLabel_1 = new JLabel("Name");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
@@ -242,7 +229,7 @@ Controller controller = new Controller();
 		panel.add(txtName, gbc_txtName);
 		txtName.setColumns(10);
 		
-		JLabel lblNewLabel_7 = new JLabel("New label");
+		JLabel lblNewLabel_7 = new JLabel("Line 1");
 		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
 		gbc_lblNewLabel_7.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 5);
@@ -259,7 +246,7 @@ Controller controller = new Controller();
 		panel.add(txtLine1, gbc_txtLine1);
 		txtLine1.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
+		JLabel lblNewLabel_2 = new JLabel("DOB");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
@@ -276,7 +263,7 @@ Controller controller = new Controller();
 		panel.add(txtDOB, gbc_txtDOB);
 		txtDOB.setColumns(10);
 		
-		JLabel lblNewLabel_8 = new JLabel("New label");
+		JLabel lblNewLabel_8 = new JLabel("Line2");
 		GridBagConstraints gbc_lblNewLabel_8 = new GridBagConstraints();
 		gbc_lblNewLabel_8.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_8.insets = new Insets(0, 0, 5, 5);
@@ -293,7 +280,7 @@ Controller controller = new Controller();
 		panel.add(txtLine2, gbc_txtLine2);
 		txtLine2.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("New label");
+		JLabel lblNewLabel_3 = new JLabel("Gender");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
@@ -310,7 +297,7 @@ Controller controller = new Controller();
 		panel.add(txtGender, gbc_txtGender);
 		txtGender.setColumns(10);
 		
-		JLabel lblNewLabel_9 = new JLabel("New label");
+		JLabel lblNewLabel_9 = new JLabel("Town");
 		GridBagConstraints gbc_lblNewLabel_9 = new GridBagConstraints();
 		gbc_lblNewLabel_9.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_9.insets = new Insets(0, 0, 5, 5);
@@ -327,7 +314,7 @@ Controller controller = new Controller();
 		panel.add(txtTown, gbc_txtTown);
 		txtTown.setColumns(10);
 		
-		JLabel lblNewLabel_4 = new JLabel("New label");
+		JLabel lblNewLabel_4 = new JLabel("Phone1");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
 		gbc_lblNewLabel_4.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
@@ -344,7 +331,7 @@ Controller controller = new Controller();
 		panel.add(txtPhone1, gbc_txtPhone1);
 		txtPhone1.setColumns(10);
 		
-		JLabel lblNewLabel_10 = new JLabel("New label");
+		JLabel lblNewLabel_10 = new JLabel("Postcode");
 		GridBagConstraints gbc_lblNewLabel_10 = new GridBagConstraints();
 		gbc_lblNewLabel_10.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_10.insets = new Insets(0, 0, 5, 5);
@@ -361,7 +348,7 @@ Controller controller = new Controller();
 		panel.add(txtPostcode, gbc_txtPostcode);
 		txtPostcode.setColumns(10);
 		
-		JLabel lblNewLabel_5 = new JLabel("New label");
+		JLabel lblNewLabel_5 = new JLabel("Phone2");
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
 		gbc_lblNewLabel_5.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_5.insets = new Insets(0, 0, 0, 5);
@@ -382,28 +369,37 @@ Controller controller = new Controller();
 		tabbedPane.addTab("Incidents", null, panel_2, null);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
 		gbl_panel_2.columnWidths = new int[]{286, 286, 1, 0};
-		gbl_panel_2.rowHeights = new int[]{1, 0, 0, 0};
+		gbl_panel_2.rowHeights = new int[]{0, 0, 0};
 		gbl_panel_2.columnWeights = new double[]{1.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_2.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
 		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane_1.gridheight = 2;
-		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane_1.insets = new Insets(0, 0, 0, 5);
 		gbc_scrollPane_1.gridx = 0;
-		gbc_scrollPane_1.gridy = 1;
+		gbc_scrollPane_1.gridy = 0;
 		panel_2.add(scrollPane_1, gbc_scrollPane_1);
 		
 		JList<Incident> IncidentsList = new JList<Incident>(model);
 		scrollPane_1.setViewportView(IncidentsList);
 		
 		JButton btnViewIncident = new JButton("View Details");
+		btnViewIncident.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				selectedIncident = (Incident) IncidentsList.getSelectedValue();
+				
+				IncidentView.NewScreen(selectedIncident, selectedResponse);
+				
+			}
+		});
 		GridBagConstraints gbc_btnViewIncident = new GridBagConstraints();
 		gbc_btnViewIncident.insets = new Insets(0, 0, 0, 5);
 		gbc_btnViewIncident.gridx = 1;
-		gbc_btnViewIncident.gridy = 2;
+		gbc_btnViewIncident.gridy = 1;
 		panel_2.add(btnViewIncident, gbc_btnViewIncident);
 		
 		JPanel panel_3 = new JPanel();
@@ -458,7 +454,7 @@ Controller controller = new Controller();
 		JButton btnRequests = new JButton("Requests");
 		btnRequests.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+//TODO Remove button - not needed anymore
 			}
 		});
 

@@ -12,6 +12,7 @@ import javax.swing.border.TitledBorder;
 
 import controller.Controller;
 import model.Incident;
+import model.Response;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -25,11 +26,11 @@ Controller controller = new Controller();
 	/**
 	 * Launch the application.
 	 */
-	public static void NewScreen() {
+	public static void NewScreen(Incident incident, Response response) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IncidentView window = new IncidentView();
+					IncidentView window = new IncidentView(incident, response);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,15 +43,19 @@ Controller controller = new Controller();
 	 * Create the application.
 	 * @throws IOException 
 	 */
-	public IncidentView() throws IOException {
+	public IncidentView(Incident incident, Response response) throws IOException {
 		controller.initialize();
-		initialize();
+		
+		initialize(incident, response);
+		
+	
+	
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Incident incident, Response response) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,6 +82,7 @@ Controller controller = new Controller();
 		panel_1.setLayout(gbl_panel_1);
 		
 		JTextArea txtAreaIncident = new JTextArea();
+		txtAreaIncident.setText(incident.getNotes());
 		GridBagConstraints gbc_txtAreaIncident = new GridBagConstraints();
 		gbc_txtAreaIncident.fill = GridBagConstraints.BOTH;
 		gbc_txtAreaIncident.gridx = 0;
@@ -98,7 +104,7 @@ Controller controller = new Controller();
 		panel.setLayout(gbl_panel);
 		
 		JTextArea txtAreaResponse = new JTextArea();
-
+		txtAreaResponse.setText(response.getResponceNotes());
 		GridBagConstraints gbc_txtAreaResponse = new GridBagConstraints();
 		gbc_txtAreaResponse.insets = new Insets(0, 0, 5, 0);
 		gbc_txtAreaResponse.fill = GridBagConstraints.BOTH;
@@ -109,6 +115,7 @@ Controller controller = new Controller();
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				frame.dispose();
 			}
 		});
@@ -117,6 +124,14 @@ Controller controller = new Controller();
 		gbc_btnClose.gridx = 0;
 		gbc_btnClose.gridy = 1;
 		panel.add(btnClose, gbc_btnClose);
+	}
+	
+	public void populateFields() {
+		
+		
+		
+		
+		
 	}
 
 }

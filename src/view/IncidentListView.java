@@ -15,7 +15,6 @@ import javax.swing.border.TitledBorder;
 
 import controller.Controller;
 import model.Hospital;
-import model.Incident;
 import model.Response;
 import java.awt.event.ActionListener;
 import java.io.IOException;

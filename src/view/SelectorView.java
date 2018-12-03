@@ -88,18 +88,7 @@ public class SelectorView {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				try {
-				IncidentListView incidentListView = new IncidentListView(selectedHospital);
-				
-				
 				HospitalView.NewScreen();
-				
-			//	incidentListView.NewScreen(selectedHospital);
-				
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 			
 				
 				
@@ -114,7 +103,10 @@ public class SelectorView {
 		JButton btnNewButton_1 = new JButton("Operator View");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			
 				OperatorView.NewScreen();
+			
+			
 			}
 		});
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
@@ -126,8 +118,8 @@ public class SelectorView {
 		JButton btnNewButton_2 = new JButton("PDA View");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//PDAView.NewScreen();
-				LoginDialog login = new LoginDialog();
+				
+				LoginDialog.NewScreen();
 				
 			}
 		});

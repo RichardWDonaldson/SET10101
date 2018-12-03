@@ -10,21 +10,17 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.GridLayout;
-import javax.swing.BoxLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
-import model.Ambulance;
 import model.Login;
 
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class LoginDialog extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9112440214382519601L;
 	private JFrame frame;
 	private JTextField txtDriverID;
 	private JTextField txtSupportID;

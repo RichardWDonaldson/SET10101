@@ -12,12 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JSplitPane;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import java.awt.Component;
-
 import javax.swing.border.TitledBorder;
 
 import controller.Controller;
@@ -533,7 +527,7 @@ public class OperatorView {
 						
 						
 					} else {
-				//Do Nothing 
+						JOptionPane.showMessageDialog(null, "Error adding Incident" + "\n" + "Please try again", "Input Error", 0);
 					}
 					
 					
@@ -546,6 +540,7 @@ public class OperatorView {
 		JButton btnSearch = new JButton("Patient Search");
 		btnSearch.addActionListener(new ActionListener() {
 			//TODO Add input validation
+			
 			public void actionPerformed(ActionEvent arg0) {
 				String chi = txtCHI.getText();
 				
@@ -586,18 +581,7 @@ public class OperatorView {
 		frame.getContentPane().add(btnIncident, gbc_btnIncident);
 	}
 	
-//	void setPanelEnabled(JPanel panel, Boolean isEnabled) {
-//	    panel.setEnabled(isEnabled);
-//
-//	    Component[] components = panel.getComponents();
-//
-//	    for (Component component : components) {
-//	        if (component instanceof JPanel) {
-//	            setPanelEnabled((JPanel) component, isEnabled);
-//	        }
-//	        component.setEnabled(isEnabled);
-//	    }
-//	}
+
 	
 	public void populateFields(Patient patient) {
 		
@@ -626,6 +610,14 @@ public class OperatorView {
 		String line2 = txtLine2.getText();
 		String town = txtTown.getText();
 		String postcode = txtPostcode.getText();
+		
+		
+		//TODO Add data validation with Regex
+		
+		
+		
+		
+		
 		
 		
 		

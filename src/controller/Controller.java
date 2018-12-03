@@ -30,7 +30,10 @@ public class Controller {
 	List<Integer> incidents = new ArrayList<Integer>();
 	Response selectedResponse;
 	
+	
+	//Initialize the Database connection
 	public void initialize() throws IOException {
+		
 		//TODO data validation
 		try {
 		database = new Database();
@@ -38,11 +41,13 @@ public class Controller {
 		
 		
 		} catch (NullPointerException ex) {
+			ex.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Database Error - Could not connect to Database", "Critical Error", 0);
 		}
 			
 	}
 	
+	//finds patient and returns object
 	public Patient findPatient(String chi) {
 		//Add validation
 		
@@ -50,14 +55,17 @@ public class Controller {
 		String name, dob, gender, phone1, phone2, houseNumber, line1, line2, town, postcode;
 		try {
 			
-			con = database.getConnection();
+	//		con = database.getConnection();
 			Statement stmt = con.createStatement();
 			
 			ResultSet rs = stmt.executeQuery("select * from patientRecords where patient_id = " + chi );
 			
-			if(rs != null) {
+			
 			
 			while(rs.next()) {
+					
+				
+				
 				for(int i=1;i<rs.getMetaData().getColumnCount(); i++) {
 					
 					output[i] = rs.getString(i);
@@ -65,9 +73,13 @@ public class Controller {
 				}
 				 
 				}
-			} else {
+			 
+			if(output[2] == null) {
 				System.out.println("No results found");
-			}
+				return null;
+			} else {
+			
+			
 			name = output[2];
 			dob = output[3];
 			gender = output[4];
@@ -82,7 +94,7 @@ public class Controller {
 			Patient patient = new Patient(chi, name, dob, gender, phone1, phone2, houseNumber, line1, line2, town, postcode);
 			
 			return patient;
-			
+			}
 		} catch (SQLException e) {
 			System.out.println("Controller: findPatient error");
 			JOptionPane.showMessageDialog(null, "Database error: Please Contact System Admin", "Critical Error", 0);
@@ -96,11 +108,11 @@ public class Controller {
 	}
 	
 	
-	
+	//adds incident to incident table
 	public boolean addIncident(Incident incident) {
 		//TODO Add check to see if insert statement worked, add data validation to input
 	try {
-		con = database.getConnection();
+	//	con = database.getConnection();
 		Statement stmt = con.createStatement();
 		
 	int i = stmt.executeUpdate("insert into incidentrecords (patient_id, date, notes) values ( '" + incident.getPatient().getChiNumber() + "', '" + incident.getDate() + "', '" + incident.getNotes() + "')" );
@@ -127,12 +139,12 @@ public class Controller {
 		
 		
 	}
-	
+	//add patient to patient table
 	public boolean addPatient(Patient patient) {
 //TODO Add input validation		
 
 		try {
-			con = database.getConnection();
+	//		con = database.getConnection();
 			Statement stmt = con.createStatement();
 			
 			int i = stmt.executeUpdate("insert into patientrecords "
@@ -167,12 +179,12 @@ public class Controller {
 		}
 		return false;
 	}
-	
+	//get ambulances from ambulance table
 	public ArrayList<Ambulance> getAmbulance() throws IOException {
 		ArrayList<Ambulance> al = new ArrayList<Ambulance>();
 		
 		try {
-			con = database.getConnection();
+	//		con = database.getConnection();
 			Statement stmt=con.createStatement();
 			
 			
@@ -197,10 +209,10 @@ public class Controller {
 		
 	}
 	
-	
+	//add request to request table
 	public boolean addRequest(Request request) {
 		try {
-			con = database.getConnection();
+		//	con = database.getConnection();
 			Statement stmt = con.createStatement();
 			
 			
@@ -211,7 +223,7 @@ public class Controller {
 			 
 		if(i > 0) {
 			System.out.println("Update Sucessful");
-			database.closeConnection();
+			
 			return true;
 		} else {
 			System.out.println("Failure, try again");
@@ -227,7 +239,7 @@ public class Controller {
 		} catch (NullPointerException ex) {
 			JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
 		}
-//		database.closeConnection();
+//		
 		return false;
 		
 		
@@ -239,7 +251,7 @@ public class Controller {
 		
 		Ambulance ambulance = null;
 		try {
-			con = database.getConnection();
+		//	con = database.getConnection();
 			Statement stmt=con.createStatement();
 			
 			
@@ -257,7 +269,7 @@ public class Controller {
 				JOptionPane.showMessageDialog(null, "Input/Output error: Contact System Admin", "Critical Error", 0);
 				ex.printStackTrace();
 			}
-	//	database.closeConnection();
+	//	
 		return ambulance;
 		
 		
@@ -265,7 +277,7 @@ public class Controller {
 	
 
 	
-	public ArrayList getRequests(Login login) {
+	public ArrayList<Request> getRequests(Login login) {
 		
 		System.out.println("Get requests" + login.toString());
 		System.out.println(Integer.parseInt(login.getAmbulanceID()));
@@ -273,7 +285,7 @@ public class Controller {
 		Ambulance currentAmbulance = getCurrentAmbulance(Integer.parseInt(login.getAmbulanceID()));
 		
 		try {
-			con = database.getConnection();
+		///	con = database.getConnection();
 			Statement stmt=con.createStatement();
 			
 			ResultSet rs=stmt.executeQuery("select * from requestrecords where ambulance_id = " + login.getAmbulanceID());  
@@ -312,7 +324,7 @@ public class Controller {
 				ex.printStackTrace();
 			}
 		
-	//	database.closeConnection();
+	//	
 		return requests;
 	}
 	
@@ -320,7 +332,7 @@ public class Controller {
 	public Incident getIncident(int id) {
 		try {
 			System.out.println("getIncident");
-			con = database.getConnection();
+		//	con = database.getConnection();
 			Statement stmt=con.createStatement();
 			
 			
@@ -361,19 +373,21 @@ public class Controller {
 		
 		
 		try {
-			con = database.getConnection();
+		//	con = database.getConnection();
 		Statement stmt = con.createStatement();
 			
 			ResultSet rs =stmt.executeQuery("SELECT LAST_INSERT_ID()");
 			while(rs.next()) {
-				database.closeConnection();
-			return rs.getInt(1);
+				
+			
+				return rs.getInt(1);
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		database.closeConnection();
+		
 		return 0;
 
 		
@@ -385,7 +399,7 @@ public class Controller {
 		ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
 		
 		try {
-		con = database.getConnection();
+		//con = database.getConnection();
 		Statement stmt=con.createStatement();
 		
 		ResultSet rs=stmt.executeQuery("select * from hospitalrecords");  
@@ -402,7 +416,7 @@ public class Controller {
 		}catch(SQLException ex) {
 			ex.printStackTrace();
 		}
-	//	database.closeConnection();
+
 		return hospitals;
 	}
 	
@@ -412,7 +426,7 @@ public class Controller {
 		
 			try {
 	
-				con = database.getConnection();
+			//con = database.getConnection();
 			Statement stmt = con.createStatement();
 				
 			
@@ -426,7 +440,7 @@ public class Controller {
 		
 		if(i > 0) {
 			System.out.println("Update Sucessful");
-			database.closeConnection();
+			
 			return true;
 		} else {
 			System.out.println("Failure, try again");
@@ -441,7 +455,7 @@ public class Controller {
 		} catch(NullPointerException ex2) {
 			ex2.printStackTrace();
 		}
-			database.closeConnection();
+			
 		return false;	
 		
 	}
@@ -450,7 +464,7 @@ public class Controller {
 		
 		
 try {
-		con = database.getConnection();
+	//con = database.getConnection();
 	Statement stmt = con.createStatement();
 		
 	ResultSet rs=stmt.executeQuery("select * from requestrecords where incident_id = " + id);  
@@ -461,6 +475,7 @@ try {
 			Incident incident = getIncident(id);
 			//ambulance, incident
 		Request request = new Request(ambulance, incident);
+		
 		return request;
 		}	
 } catch (SQLException e) {
@@ -476,7 +491,7 @@ try {
 	public ArrayList<Response> getResponses(Hospital selectedHospital) {
 		ArrayList<Response> responses = new ArrayList<Response>();
 		try { 
-			con = database.getConnection();
+		//	con = database.getConnection();
 			Statement stmt = con.createStatement();
 			
 			//incident id, hospital id, notes 
@@ -491,6 +506,7 @@ try {
 			Response response = new Response(request, notes, selectedHospital);
 				
 			responses.add(response);
+		
 			}
 			
 			
@@ -516,7 +532,7 @@ try {
 		Hospital hospital = null;
 		try {
 			
-			con = database.getConnection();
+		//	con = database.getConnection();
 			Statement stmt = con.createStatement();
 			
 			ResultSet rs=stmt.executeQuery("select * from hospitalrecords where id = " + id);
@@ -524,6 +540,7 @@ try {
 			while(rs.next()) {
 				hospital = new Hospital(id, rs.getString(2));
 			}
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -552,7 +569,7 @@ try {
 	public ArrayList<Incident> getIncidents(int id) {
 		ArrayList<Incident> incidents = new ArrayList<Incident>();
 		try {
-		con = database.getConnection();
+		//	con = database.getConnection();
 		Statement stmt = con.createStatement();
 		
 		ResultSet rs=stmt.executeQuery("select * from incidentrecords where patient_id = " + id);

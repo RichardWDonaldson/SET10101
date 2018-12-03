@@ -7,7 +7,6 @@ import java.awt.GridBagLayout;
 import javax.swing.JTabbedPane;
 
 import controller.Controller;
-import model.Ambulance;
 import model.Hospital;
 import model.Login;
 import model.Request;
@@ -21,7 +20,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -31,8 +29,6 @@ import javax.swing.JList;
 public class PDAView {
 
 	private JFrame frame;
-	private int driver;
-	private int support;
 	private Controller controller = new Controller();
 	private JTextField txtCHI;
 	private JTextField txtHouseNumber;
