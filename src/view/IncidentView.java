@@ -10,16 +10,18 @@ import java.awt.Insets;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import controller.Controller;
 import model.Incident;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class IncidentView {
 
 	private JFrame frame;
-
+Controller controller = new Controller();
 	/**
 	 * Launch the application.
 	 */
@@ -38,8 +40,10 @@ public class IncidentView {
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public IncidentView() {
+	public IncidentView() throws IOException {
+		controller.initialize();
 		initialize();
 	}
 

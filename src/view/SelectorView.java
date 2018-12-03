@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 
 import controller.Controller;
+import model.Hospital;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -19,6 +20,7 @@ public class SelectorView {
 
 	private JFrame frame;
 	Controller controller = new Controller();
+	Hospital selectedHospital;
 
 	/**
 	 * Launch the application.
@@ -42,6 +44,7 @@ public class SelectorView {
 	 */
 	public SelectorView() throws IOException {
 	controller.initialize();
+	selectedHospital = controller.getCurrentHospital(100);
 		initialize();
 	}
 
@@ -84,7 +87,20 @@ public class SelectorView {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				
+				try {
+				IncidentListView incidentListView = new IncidentListView(selectedHospital);
+				
+				
 				HospitalView.NewScreen();
+				
+			//	incidentListView.NewScreen(selectedHospital);
+				
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
 				
 				
 			}

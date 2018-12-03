@@ -8,15 +8,25 @@ import javax.swing.JTabbedPane;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JPanel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import controller.Controller;
+import model.Ambulance;
 import model.Hospital;
+import model.Incident;
+import model.Response;
 
 import javax.swing.JList;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 public class HospitalView {
 
@@ -33,8 +43,14 @@ public class HospitalView {
 	private JTextField txtTown;
 	private JTextField txtPostcode;
 
-	Hospital selectedHospital;
 
+	Hospital selectedHospital;
+	Response selectedResponse;
+	ArrayList<Response> responses = new ArrayList<Response>();
+	ArrayList<Incident> incidents = new ArrayList<Incident>();
+	DefaultListModel<Incident> model = new DefaultListModel<Incident>();
+	
+Controller controller = new Controller();
 	/**
 	 * Launch the application.
 	 */
@@ -72,11 +88,15 @@ public class HospitalView {
 	 * Create the application.
 	 */
 	public HospitalView() {
+		selectedHospital = controller.getCurrentHospital(100);
+		responses = controller.getResponses(selectedHospital);
 		initialize();
+
 		//TODO Get incidents involved with patient
 		//TODO get patient details
 		//TODO Alter details
 		//TODO Add details
+		//TODO Change toString for Response
 	}
 
 	/**
@@ -84,6 +104,8 @@ public class HospitalView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setBounds(100, 100, 670, 611);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{578, 0};
 		gridBagLayout.rowHeights = new int[]{389, 243, 0};
@@ -98,6 +120,67 @@ public class HospitalView {
 		gbc_tabbedPane.gridx = 0;
 		gbc_tabbedPane.gridy = 0;
 		frame.getContentPane().add(tabbedPane, gbc_tabbedPane);
+		
+		JPanel panel_4 = new JPanel();
+		tabbedPane.addTab("Follow up", null, panel_4, null);
+		GridBagLayout gbl_panel_4 = new GridBagLayout();
+		gbl_panel_4.columnWidths = new int[]{0, 0, 0};
+		gbl_panel_4.rowHeights = new int[]{0, 0, 0};
+		gbl_panel_4.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_4.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		panel_4.setLayout(gbl_panel_4);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridheight = 2;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 0;
+		panel_4.add(scrollPane, gbc_scrollPane);
+		
+		JList<Object> list_2 = new JList<Object>(responses.toArray());
+		scrollPane.setViewportView(list_2);
+		
+		JButton btnSelectResponse = new JButton("Select Response");
+		btnSelectResponse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			
+				
+				selectedResponse = (Response) list_2.getSelectedValue();
+				
+				populateFields(selectedResponse);
+				
+				String id = selectedResponse.getRequest().getIncident().getPatient().getChiNumber();
+				System.out.println("Selected ID " + id);
+				
+				int selectedID = Integer.parseInt(id);
+				
+				incidents = controller.getIncidents(selectedID);
+				
+			
+				
+				for (Incident incident: incidents) {
+					model.addElement(incident);
+				}
+				
+				
+				
+				
+			}
+		});
+		GridBagConstraints gbc_btnSelectResponse = new GridBagConstraints();
+		gbc_btnSelectResponse.insets = new Insets(0, 0, 5, 0);
+		gbc_btnSelectResponse.gridx = 1;
+		gbc_btnSelectResponse.gridy = 0;
+		panel_4.add(btnSelectResponse, gbc_btnSelectResponse);
+		
+		JButton btnRefresh = new JButton("Refresh");
+		GridBagConstraints gbc_btnRefresh = new GridBagConstraints();
+		gbc_btnRefresh.gridx = 1;
+		gbc_btnRefresh.gridy = 1;
+		panel_4.add(btnRefresh, gbc_btnRefresh);
 		
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Personal Details", null, panel, null);
@@ -304,22 +387,17 @@ public class HospitalView {
 		gbl_panel_2.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
-		JList list = new JList();
-		GridBagConstraints gbc_list = new GridBagConstraints();
-		gbc_list.insets = new Insets(0, 0, 5, 0);
-		gbc_list.anchor = GridBagConstraints.NORTHWEST;
-		gbc_list.gridx = 2;
-		gbc_list.gridy = 0;
-		panel_2.add(list, gbc_list);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.gridheight = 2;
+		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane_1.gridx = 0;
+		gbc_scrollPane_1.gridy = 1;
+		panel_2.add(scrollPane_1, gbc_scrollPane_1);
 		
-		JList list_1 = new JList();
-		GridBagConstraints gbc_list_1 = new GridBagConstraints();
-		gbc_list_1.gridheight = 2;
-		gbc_list_1.insets = new Insets(0, 0, 0, 5);
-		gbc_list_1.fill = GridBagConstraints.BOTH;
-		gbc_list_1.gridx = 0;
-		gbc_list_1.gridy = 1;
-		panel_2.add(list_1, gbc_list_1);
+		JList<Incident> IncidentsList = new JList<Incident>(model);
+		scrollPane_1.setViewportView(IncidentsList);
 		
 		JButton btnViewIncident = new JButton("View Details");
 		GridBagConstraints gbc_btnViewIncident = new GridBagConstraints();
@@ -364,9 +442,6 @@ public class HospitalView {
 		gbc_lblNewLabel_14.gridy = 7;
 		panel_3.add(lblNewLabel_14, gbc_lblNewLabel_14);
 		
-		JPanel panel_4 = new JPanel();
-		tabbedPane.addTab("Follow up", null, panel_4, null);
-		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
@@ -383,10 +458,10 @@ public class HospitalView {
 		JButton btnRequests = new JButton("Requests");
 		btnRequests.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				IncidentListView.NewScreen(selectedHospital);
+
 			}
 		});
+
 		GridBagConstraints gbc_btnRequests = new GridBagConstraints();
 		gbc_btnRequests.insets = new Insets(0, 0, 5, 5);
 		gbc_btnRequests.gridx = 2;
@@ -414,5 +489,40 @@ public class HospitalView {
 		gbc_btnUpdate.gridy = 1;
 		panel_1.add(btnUpdate, gbc_btnUpdate);
 	}
+	
+	public void clearFields() {
+		txtCHI.setText("");
+		txtName.setText("");
+		txtDOB.setText("");
+		txtGender.setText("");
+		txtPhone1.setText("");
+		txtPhone2.setText("");
+		txtHouseNumber.setText("");
+		txtLine1.setText("");
+		txtLine2.setText("");
+		txtTown.setText("");
+		txtPostcode.setText("");
+	}
+	
+	public void populateFields(Response response) {
+		
+	txtCHI.setText(response.getRequest().getIncident().getPatient().getChiNumber());	
+	txtName.setText(response.getRequest().getIncident().getPatient().getName());
+	txtDOB.setText(response.getRequest().getIncident().getPatient().getDob());
+	txtGender.setText(response.getRequest().getIncident().getPatient().getGender());
+	txtPhone1.setText(response.getRequest().getIncident().getPatient().getPhone1());
+	txtPhone2.setText(response.getRequest().getIncident().getPatient().getPhone2());
+	txtHouseNumber.setText(response.getRequest().getIncident().getPatient().getHouseNumber());
+	txtLine1.setText(response.getRequest().getIncident().getPatient().getLine1());
+	txtLine2.setText(response.getRequest().getIncident().getPatient().getLine2());
+	txtTown.setText(response.getRequest().getIncident().getPatient().getTown());
+	txtPostcode.setText(response.getRequest().getIncident().getPatient().getPostcode());
+	
+	
+	
+		
+	}
+	
 
+	
 }

@@ -28,6 +28,7 @@ public class Controller {
 	ArrayList<Incident> arrayIncidents = new ArrayList<Incident>();
 	ArrayList<Patient> patients = new ArrayList<Patient>();
 	List<Integer> incidents = new ArrayList<Integer>();
+	Response selectedResponse;
 	
 	public void initialize() throws IOException {
 		//TODO data validation
@@ -457,13 +458,16 @@ try {
 		while(rs.next()) {
 		//Ambulance, Incident
 			Ambulance ambulance = getCurrentAmbulance(rs.getInt(2));
-			
-		Request request = new Request(null, null);	
+			Incident incident = getIncident(id);
+			//ambulance, incident
+		Request request = new Request(ambulance, incident);
+		return request;
 		}	
 } catch (SQLException e) {
 	e.printStackTrace();
 }
-		return request;
+	
+	return null;
 	}
 	
 	
@@ -480,7 +484,7 @@ try {
 			ResultSet rs=stmt.executeQuery("select * from responserecords where hospital_id = " + selectedHospital.getHospitalID() );  
 			
 			while(rs.next()) {
-				
+				//pass Incident ID to get incidents for hospital
 			Request request =  getHospitalRequests(rs.getInt(2));
 			String notes = rs.getString(4);
 			
@@ -506,6 +510,72 @@ try {
 		return responses;
 		
 	}
+	
+	public Hospital getCurrentHospital(int id) {
+		
+		Hospital hospital = null;
+		try {
+			
+			con = database.getConnection();
+			Statement stmt = con.createStatement();
+			
+			ResultSet rs=stmt.executeQuery("select * from hospitalrecords where id = " + id);
+			
+			while(rs.next()) {
+				hospital = new Hospital(id, rs.getString(2));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NullPointerException ex) {
+			ex.printStackTrace();
+		}
+		
+		return hospital;
+	}
+	
+	public void setSelectedResponse(Response response) {
+		
+	selectedResponse = response;
+	
+	System.out.println("Controller selected Response " + selectedResponse.toString());
+	}
+	
+	
+	public Response getSelectedResponse() {
+		
+		return selectedResponse;
+		
+		
+	}
+	
+	public ArrayList<Incident> getIncidents(int id) {
+		ArrayList<Incident> incidents = new ArrayList<Incident>();
+		try {
+		con = database.getConnection();
+		Statement stmt = con.createStatement();
+		
+		ResultSet rs=stmt.executeQuery("select * from incidentrecords where patient_id = " + id);
+		
+		while(rs.next()) {
+			Incident incident = getIncident(rs.getInt(1));
+			
+			System.out.println("getIncidents " + incident.toString());
+			
+			incidents.add(incident);
+			
+			
+		}
+		
+		return incidents;
+		
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 	
 	
 }
