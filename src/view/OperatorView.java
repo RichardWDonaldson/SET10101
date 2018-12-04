@@ -42,6 +42,7 @@ public class OperatorView {
 	private JTextField txtPhone1;
 	private JTextField txtPhone2;
 	private JTextField txtDate;
+	
 	String lastCrawlDate = "2018-12-07";
 	Controller controller = new Controller();
 	Date utilDate;
@@ -51,18 +52,6 @@ public class OperatorView {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					OperatorView window = new OperatorView();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 	
 	public static void NewScreen() {
 		EventQueue.invokeLater(new Runnable() {
@@ -522,9 +511,7 @@ public class OperatorView {
 				boolean success = controller.addIncident(incident);
 					if(success) { 
 						AmbulanceFinderView.NewScreen(incident);
-						clearView();
-						
-						
+						clearView();		
 						
 					} else {
 						JOptionPane.showMessageDialog(null, "Error adding Incident" + "\n" + "Please try again", "Input Error", 0);
@@ -554,8 +541,7 @@ public class OperatorView {
 					if(selectedPatient == null) {
 						int result = JOptionPane.showConfirmDialog(null, "Do you wish to Register a New User?", "No Patient Found", 0);
 						if(result == JOptionPane.YES_OPTION) {
-//						setPanelEnabled(panel_2, true);
-//						setPanelEnabled(panel_4, true);
+
 						} else {
 							//Do Nothing
 						}
@@ -613,24 +599,15 @@ public class OperatorView {
 		
 		
 		//TODO Add data validation with Regex
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		Patient patient = new Patient(chi, name,dob , gender, phone1, phone2, houseNumber, line1, line2, town, postcode );	
 	
-		
 		return patient;
 		
 		
 	}
 	
 	public void clearView() {
+		txtCHI.setText("");
 		txtName.setText("");
 		txtDOB.setText("");
 		txtGender.setText("");
@@ -641,12 +618,7 @@ public class OperatorView {
 		txtLine2.setText("");
 		txtTown.setText("");
 		txtPostcode.setText("");
-		
-		
-		
+				
 	}
-	
-	
-	
 
 }

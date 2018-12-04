@@ -122,9 +122,12 @@ public class Patient {
 	//TODO Clean up ToString()
 	@Override
 	public String toString() {
-		return "Patient [chiNumber=" + chiNumber + ", name=" + name + ", dob=" + dob + ", gender=" + gender
-				+ ", phone1=" + phone1 + ", phone2=" + phone2 + ", houseNumber=" + houseNumber + ", line1=" + line1
-				+ ", line2=" + line2 + ", town=" + town + ", postcode=" + postcode + "]";
+		
+		String s = name + "\t" + dob + "\t" + chiNumber;
+		
+		return s;
+		
+
 	}
 
 	

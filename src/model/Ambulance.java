@@ -50,7 +50,9 @@ public void setLocation(String location) {
 @Override
 public String toString() {
 	
-	String s = "Ambulance ID: " + id + "Type: " + type + "Location: " + location;
+	String s = "Ambulance ID: " +  id 
+			+ "\t" + " Type: " + type 
+			+ "\t" + " Location: " + location;
 	
 	return s;
 	

@@ -54,7 +54,12 @@ public class Incident {
 //TODO clean Tostring()
 	@Override
 	public String toString() {
-		return "Incident [id=" + id + ", patient=" + patient + ", date=" + date + ", notes=" + notes + "]";
+	
+		String s = "ID: " + id + "\t" + "Date: " + date;
+		
+		return s;
+		
+	
 	}
 
 

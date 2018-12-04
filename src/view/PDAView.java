@@ -71,16 +71,16 @@ public class PDAView {
 	 * @throws IOException 
 	 */
 	public PDAView(Login login) throws IOException {
-		System.out.println(login.toString());
+	//	System.out.println(login.toString());
 		Controller controller = new Controller();
 		controller.initialize();
 		requests = controller.getRequests(login);
 		hospitals = controller.getHospitals();
 		
-		for(Request r: requests) {
-			System.out.println(r.toString());
-			
-		}
+//		for(Request r: requests) {
+//			System.out.println(r.toString());
+//			
+//		}
 		
 		
 		
@@ -336,7 +336,8 @@ public class PDAView {
 		
 		JTextArea txtAIncident = new JTextArea();
 		txtAIncident.setEditable(false);
-		txtAIncident.setText(selectedRequest.getIncident().getNotes());
+		//TODO FIX THIS
+	//	txtAIncident.setText(selectedRequest.getIncident().getNotes());
 		GridBagConstraints gbc_txtAIncident = new GridBagConstraints();
 		gbc_txtAIncident.fill = GridBagConstraints.BOTH;
 		gbc_txtAIncident.gridwidth = 4;
@@ -440,7 +441,7 @@ public class PDAView {
 			
 			selectedRequest = (Request) listRequests.getSelectedValue();	
 				
-			System.out.println("Selected Request" + selectedRequest.toString());
+			//System.out.println("Selected Request" + selectedRequest.toString());
 			
 			
 			populateFields(selectedRequest);
@@ -468,9 +469,9 @@ public class PDAView {
 				//Request, notes, hospital
 				Response response = new Response(selectedRequest, strResponse, selectedHospital);
 				System.out.println("Response created");
-				System.out.println("This is the responce" + response.toString());	
+		//		System.out.println("This is the responce" + response.toString());	
 				
-				//TODO add responce to controller
+				//Change addResponse to Boolean to test for success
 				controller.addResponce(response);
 				
 				
@@ -496,7 +497,7 @@ public class PDAView {
 		txtTown.setText(request.getIncident().getPatient().getTown());
 		txtPostcode.setText(request.getIncident().getPatient().getPostcode());
 		
-	//	txtAIncident.setText();
+	
 		
 		
 		

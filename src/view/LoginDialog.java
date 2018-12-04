@@ -142,11 +142,11 @@ public class LoginDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				
 				String ambulanceID = txtAmbulanceID.getText();
-				System.out.println("ambulance is " + ambulanceID);
+		//		System.out.println("ambulance is " + ambulanceID);
 				String driverID = txtDriverID.getText();
-				System.out.println("driver is " + driverID);
+		//		System.out.println("driver is " + driverID);
 				String supportID = txtSupportID.getText();
-				System.out.println("support is " + supportID);
+		//		System.out.println("support is " + supportID);
 				
 				login = new Login(ambulanceID, driverID,supportID);
 				if(login != null) {

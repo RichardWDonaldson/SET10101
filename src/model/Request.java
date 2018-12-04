@@ -23,7 +23,12 @@ public class Request {
 	}
 	@Override
 	public String toString() {
-		return "Request [ambulance=" + ambulance + ", incident=" + incident + "]";
+		
+		String s = ambulance.getId() + "\t" + incident;
+		
+		return s;
+		
+	
 		
 	}
 	

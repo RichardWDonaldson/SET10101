@@ -23,7 +23,12 @@ public class Location {
 	
 	@Override
 	public String toString() {
-		return "Location [street=" + street + ", postcode=" + postcode + "]";
+		
+		String s = street + "/" + postcode;
+		
+		return s;
+	
+		
 	}
 	
 	

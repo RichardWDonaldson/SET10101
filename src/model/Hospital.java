@@ -30,7 +30,13 @@ public class Hospital {
 
 	@Override
 	public String toString() {
-		return "Hospital [hospitalID=" + hospitalID + ", location=" + location + "]";
+		
+		String s = location + "ID: " + hospitalID;
+		
+		return s;
+		
+		
+	
 	}
 	
 	

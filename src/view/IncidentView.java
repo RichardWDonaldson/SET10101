@@ -125,13 +125,5 @@ Controller controller = new Controller();
 		gbc_btnClose.gridy = 1;
 		panel.add(btnClose, gbc_btnClose);
 	}
-	
-	public void populateFields() {
-		
-		
-		
-		
-		
-	}
 
 }
