@@ -375,12 +375,15 @@ public class Controller {
 		try {
 		//	con = database.getConnection();
 		Statement stmt = con.createStatement();
+
+		
 			
-			ResultSet rs =stmt.executeQuery("SELECT LAST_INSERT_ID()");
+			ResultSet rs =stmt.executeQuery("SELECT id FROM incidentrecords ORDER BY id DESC LIMIT 1");
 			while(rs.next()) {
-				
+				System.out.println("The last Insert is " + rs.getInt(1));
 			
 				return rs.getInt(1);
+				
 			}
 			
 		} catch (SQLException e) {

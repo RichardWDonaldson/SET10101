@@ -42,7 +42,7 @@ public class OperatorView {
 	private JTextField txtPhone1;
 	private JTextField txtPhone2;
 	private JTextField txtDate;
-	String lastCrawlDate = "2014-01-28";
+	String lastCrawlDate = "2018-12-07";
 	Controller controller = new Controller();
 	Date utilDate;
 	java.sql.Date sqlDate;

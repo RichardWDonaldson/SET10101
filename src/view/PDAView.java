@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 public class PDAView {
 
@@ -112,7 +113,7 @@ public class PDAView {
 		frame.getContentPane().add(tabbedPane, gbc_tabbedPane);
 		
 		JPanel Panel = new JPanel();
-		tabbedPane.addTab("New tab", null, Panel, null);
+		tabbedPane.addTab("Personal details", null, Panel, null);
 		GridBagLayout gbl_Panel = new GridBagLayout();
 		gbl_Panel.columnWidths = new int[]{60, 0, 0, 286, 0};
 		gbl_Panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
@@ -120,7 +121,7 @@ public class PDAView {
 		gbl_Panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		Panel.setLayout(gbl_Panel);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel("CHI");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
@@ -138,7 +139,7 @@ public class PDAView {
 		Panel.add(txtCHI, gbc_txtCHI);
 		txtCHI.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
+		JLabel lblNewLabel_1 = new JLabel("House Number");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
@@ -156,7 +157,7 @@ public class PDAView {
 		Panel.add(txtHouseNumber, gbc_txtHouseNumber);
 		txtHouseNumber.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
+		JLabel lblNewLabel_2 = new JLabel("Name");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
@@ -174,7 +175,7 @@ public class PDAView {
 		Panel.add(txtName, gbc_txtName);
 		txtName.setColumns(10);
 		
-		JLabel lblNewLabel_6 = new JLabel("New label");
+		JLabel lblNewLabel_6 = new JLabel("Line 1");
 		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
 		gbc_lblNewLabel_6.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
@@ -192,7 +193,7 @@ public class PDAView {
 		Panel.add(txtLine1, gbc_txtLine1);
 		txtLine1.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("New label");
+		JLabel lblNewLabel_3 = new JLabel("DOB");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
@@ -210,7 +211,7 @@ public class PDAView {
 		Panel.add(txtDOB, gbc_txtDOB);
 		txtDOB.setColumns(10);
 		
-		JLabel lblNewLabel_7 = new JLabel("New label");
+		JLabel lblNewLabel_7 = new JLabel("Line 2");
 		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
 		gbc_lblNewLabel_7.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 5);
@@ -228,7 +229,7 @@ public class PDAView {
 		Panel.add(txtLine2, gbc_txtLine2);
 		txtLine2.setColumns(10);
 		
-		JLabel lblNewLabel_4 = new JLabel("New label");
+		JLabel lblNewLabel_4 = new JLabel("Gender");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
 		gbc_lblNewLabel_4.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
@@ -246,7 +247,7 @@ public class PDAView {
 		Panel.add(txtGender, gbc_txtGender);
 		txtGender.setColumns(10);
 		
-		JLabel lblNewLabel_8 = new JLabel("New label");
+		JLabel lblNewLabel_8 = new JLabel("Town");
 		GridBagConstraints gbc_lblNewLabel_8 = new GridBagConstraints();
 		gbc_lblNewLabel_8.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_8.insets = new Insets(0, 0, 5, 5);
@@ -264,7 +265,7 @@ public class PDAView {
 		Panel.add(txtTown, gbc_txtTown);
 		txtTown.setColumns(10);
 		
-		JLabel lblNewLabel_5 = new JLabel("New label");
+		JLabel lblNewLabel_5 = new JLabel("Phone1");
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
 		gbc_lblNewLabel_5.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
@@ -282,7 +283,7 @@ public class PDAView {
 		Panel.add(txtPhone1, gbc_txtPhone1);
 		txtPhone1.setColumns(10);
 		
-		JLabel lblNewLabel_9 = new JLabel("New label");
+		JLabel lblNewLabel_9 = new JLabel("Postcode");
 		GridBagConstraints gbc_lblNewLabel_9 = new GridBagConstraints();
 		gbc_lblNewLabel_9.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_9.insets = new Insets(0, 0, 5, 5);
@@ -300,7 +301,7 @@ public class PDAView {
 		Panel.add(txtPostcode, gbc_txtPostcode);
 		txtPostcode.setColumns(10);
 		
-		JLabel lblNewLabel_10 = new JLabel("New label");
+		JLabel lblNewLabel_10 = new JLabel("Phone2");
 		GridBagConstraints gbc_lblNewLabel_10 = new GridBagConstraints();
 		gbc_lblNewLabel_10.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_10.insets = new Insets(0, 0, 5, 5);
@@ -319,7 +320,7 @@ public class PDAView {
 		txtPhone2.setColumns(10);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(null, "JPanel title", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBorder(new TitledBorder(null, "Incident Notes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
 		gbc_panel_3.gridwidth = 4;
@@ -335,6 +336,7 @@ public class PDAView {
 		
 		JTextArea txtAIncident = new JTextArea();
 		txtAIncident.setEditable(false);
+		txtAIncident.setText(selectedRequest.getIncident().getNotes());
 		GridBagConstraints gbc_txtAIncident = new GridBagConstraints();
 		gbc_txtAIncident.fill = GridBagConstraints.BOTH;
 		gbc_txtAIncident.gridwidth = 4;
@@ -344,7 +346,7 @@ public class PDAView {
 		panel_3.add(txtAIncident, gbc_txtAIncident);
 		
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_1, null);
+		tabbedPane.addTab("Response", null, panel_1, null);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[]{0, 0};
 		gbl_panel_1.rowHeights = new int[]{0, 0};
@@ -374,7 +376,7 @@ public class PDAView {
 		panel.add(txtAResponce, gbc_txtAResponce);
 		
 		JPanel panel_4 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_4, null);
+		tabbedPane.addTab("Hospital", null, panel_4, null);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
 		gbl_panel_4.columnWidths = new int[]{0, 0};
 		gbl_panel_4.rowHeights = new int[]{0, 0};
@@ -404,19 +406,32 @@ public class PDAView {
 		gbl_panel_2.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		gbl_panel_2.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
+		
+		JPanel panel_5 = new JPanel();
+		panel_5.setBorder(new TitledBorder(null, "Pending Requests", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_panel_5 = new GridBagConstraints();
+		gbc_panel_5.fill = GridBagConstraints.BOTH;
+		gbc_panel_5.gridwidth = 2;
+		gbc_panel_5.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_5.gridx = 0;
+		gbc_panel_5.gridy = 0;
+		panel_2.add(panel_5, gbc_panel_5);
+		GridBagLayout gbl_panel_5 = new GridBagLayout();
+		gbl_panel_5.columnWidths = new int[]{0, 0};
+		gbl_panel_5.rowHeights = new int[]{0, 0};
+		gbl_panel_5.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_5.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		panel_5.setLayout(gbl_panel_5);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 0;
+		panel_5.add(scrollPane, gbc_scrollPane);
 		//populate List
 		JList<Object> listRequests = new JList<Object>(requests.toArray());
-		
-		
-		
-		
-		GridBagConstraints gbc_listRequests = new GridBagConstraints();
-		gbc_listRequests.gridwidth = 2;
-		gbc_listRequests.insets = new Insets(0, 0, 5, 0);
-		gbc_listRequests.fill = GridBagConstraints.BOTH;
-		gbc_listRequests.gridx = 0;
-		gbc_listRequests.gridy = 0;
-		panel_2.add(listRequests, gbc_listRequests);
+		scrollPane.setViewportView(listRequests);
 		
 		JButton btnNewButton = new JButton("Select Incident");
 		btnNewButton.addActionListener(new ActionListener() {

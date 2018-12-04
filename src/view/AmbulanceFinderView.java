@@ -8,7 +8,6 @@ import javax.swing.JList;
 
 import model.Ambulance;
 import model.Incident;
-import model.Model;
 import model.Request;
 
 import java.awt.GridBagConstraints;
@@ -24,7 +23,7 @@ public class AmbulanceFinderView {
 ArrayList<Ambulance> ambulance = new ArrayList<Ambulance>();
 Controller controller = new Controller();
 static Incident selectedIncident;
-Model model = new Model();
+
 	private JFrame frame;
 
 	/**
@@ -109,7 +108,7 @@ Model model = new Model();
 				
 				Ambulance selectedAmbulance = (Ambulance) list.getSelectedValue();
 	
-				System.out.println(selectedAmbulance.toString() + "\n\n" + selectedIncident.toString());
+				System.out.println("Ambulance Finder View: Send Request button " + selectedAmbulance.toString() + "\n\n" + selectedIncident.toString());
 				
 				Request request = new Request(selectedAmbulance, selectedIncident);
 				

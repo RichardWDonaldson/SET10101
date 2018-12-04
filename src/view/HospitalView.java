@@ -402,42 +402,6 @@ Controller controller = new Controller();
 		gbc_btnViewIncident.gridy = 1;
 		panel_2.add(btnViewIncident, gbc_btnViewIncident);
 		
-		JPanel panel_3 = new JPanel();
-		tabbedPane.addTab("Medical notes", null, panel_3, null);
-		GridBagLayout gbl_panel_3 = new GridBagLayout();
-		gbl_panel_3.columnWidths = new int[]{0, 0};
-		gbl_panel_3.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel_3.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel_3.setLayout(gbl_panel_3);
-		
-		JLabel lblNewLabel_11 = new JLabel("New label");
-		GridBagConstraints gbc_lblNewLabel_11 = new GridBagConstraints();
-		gbc_lblNewLabel_11.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_11.gridx = 0;
-		gbc_lblNewLabel_11.gridy = 1;
-		panel_3.add(lblNewLabel_11, gbc_lblNewLabel_11);
-		
-		JLabel lblNewLabel_12 = new JLabel("New label");
-		GridBagConstraints gbc_lblNewLabel_12 = new GridBagConstraints();
-		gbc_lblNewLabel_12.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_12.gridx = 0;
-		gbc_lblNewLabel_12.gridy = 3;
-		panel_3.add(lblNewLabel_12, gbc_lblNewLabel_12);
-		
-		JLabel lblNewLabel_13 = new JLabel("New label");
-		GridBagConstraints gbc_lblNewLabel_13 = new GridBagConstraints();
-		gbc_lblNewLabel_13.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_13.gridx = 0;
-		gbc_lblNewLabel_13.gridy = 5;
-		panel_3.add(lblNewLabel_13, gbc_lblNewLabel_13);
-		
-		JLabel lblNewLabel_14 = new JLabel("New label");
-		GridBagConstraints gbc_lblNewLabel_14 = new GridBagConstraints();
-		gbc_lblNewLabel_14.gridx = 0;
-		gbc_lblNewLabel_14.gridy = 7;
-		panel_3.add(lblNewLabel_14, gbc_lblNewLabel_14);
-		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
@@ -451,34 +415,13 @@ Controller controller = new Controller();
 		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
-		JButton btnRequests = new JButton("Requests");
-		btnRequests.addActionListener(new ActionListener() {
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//TODO Remove button - not needed anymore
+				
+				
 			}
 		});
-
-		GridBagConstraints gbc_btnRequests = new GridBagConstraints();
-		gbc_btnRequests.insets = new Insets(0, 0, 5, 5);
-		gbc_btnRequests.gridx = 2;
-		gbc_btnRequests.gridy = 1;
-		panel_1.add(btnRequests, gbc_btnRequests);
-		
-		JButton btnNewButton_1 = new JButton("New button");
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_1.gridx = 4;
-		gbc_btnNewButton_1.gridy = 1;
-		panel_1.add(btnNewButton_1, gbc_btnNewButton_1);
-		
-		JButton btnNewButton_2 = new JButton("New button");
-		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
-		gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_2.gridx = 6;
-		gbc_btnNewButton_2.gridy = 1;
-		panel_1.add(btnNewButton_2, gbc_btnNewButton_2);
-		
-		JButton btnUpdate = new JButton("Update");
 		GridBagConstraints gbc_btnUpdate = new GridBagConstraints();
 		gbc_btnUpdate.insets = new Insets(0, 0, 5, 0);
 		gbc_btnUpdate.gridx = 8;
