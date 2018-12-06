@@ -36,7 +36,7 @@ public class LoginDialog extends JDialog {
 			public void run() {
 				try {
 					LoginDialog window = new LoginDialog();
-					window.frame.setVisible(true);
+				//	window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

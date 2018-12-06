@@ -119,7 +119,7 @@ public class Patient {
 	}
 
 	
-	//TODO Clean up ToString()
+
 	@Override
 	public String toString() {
 		

@@ -26,21 +26,26 @@ public class Database {
 
 	}
 	
-	
-	
-	
-	public void openConnection() {
+	public boolean openConnection() {
 		try{  
 			Class.forName(JDBC_DRIVER);  
 			System.out.println("Connecting to KwikMedical");
 			con=DriverManager.getConnection(DB_URL, USER, PASS);  
 			System.out.println("Successfully connected");
-		
+			return true;
 			
-			} catch(Exception e){ 
+			} catch(SQLException e){ 
 				JOptionPane.showMessageDialog(null, "Error connecting to Database - Please contact System Administrator", "Critical Error", 0);
 				System.out.println(e);
-			}  
+				return false;
+			}  catch(NullPointerException ex) {
+				
+				ex.printStackTrace();
+				return false;
+			} catch(ClassNotFoundException ex2) {
+				ex2.printStackTrace();
+				return false;
+			}
 		
 			}
 
@@ -58,17 +63,21 @@ public class Database {
 	}
 	
 	public Connection getConnection() {
-		try {
-		if(con.isClosed()) {
-			openConnection();
-		}
-		
-		
-		}catch(NullPointerException ex) {
-			ex.printStackTrace();
-		} catch(SQLException ex2) {
-			ex2.printStackTrace();
-		}
+//		try {
+////		if(con.isClosed()) {
+////		Boolean success = openConnection();
+////		if(!success) {
+////			JOptionPane.showMessageDialog(null, "Error connecting to Database - Please contact System Administrator", "Critical Error", 0);
+////		}
+//		
+//		}
+//		
+//		
+//		}catch(NullPointerException ex) {
+//			ex.printStackTrace();
+//		} catch(SQLException ex2) {
+//			ex2.printStackTrace();
+//		}
 		
 		return con;
 	}

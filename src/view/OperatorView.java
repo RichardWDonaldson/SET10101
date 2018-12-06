@@ -25,7 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
-//TODO Add the rest of the fields into the database and into the update and insertion
+
 
 public class OperatorView {
 
@@ -76,7 +76,11 @@ public class OperatorView {
 	 * @throws IOException 
 	 */
 	public OperatorView() throws IOException {
-		controller.initialize();
+		
+//	Boolean databaseSuccess =	controller.initialize();
+//	if(!databaseSuccess) {
+//		JOptionPane.showMessageDialog(frame, "Database Error - Could not connect to Database", "Critical Error", 0);
+//	}
 		initialize();
 	}
 
@@ -412,7 +416,7 @@ public class OperatorView {
 		try {
 			utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(lastCrawlDate);
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 		} 
 		
@@ -461,15 +465,20 @@ public class OperatorView {
 			
 			public void actionPerformed(ActionEvent arg0) {
 			
-			Patient patient = getPatientInput();	
+			Patient patient = getPatientInput();
 			
-			Boolean Success = controller.addPatient(patient);
-			
-			if(Success == true) {
-				selectedPatient = patient;
+			if(patient == null) {
+				JOptionPane.showMessageDialog(frame, "Please check inputted information", "Error", JOptionPane.WARNING_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(null, "Error in patient Registration", "Input Error", 0);
-			}
+				Boolean Success = controller.addPatient(patient);
+				
+					if(Success == true) {
+						selectedPatient = patient;
+					} else {
+					JOptionPane.showMessageDialog(null, "Error in patient Registration", "Input Error", 0);
+					}
+				
+				}
 			
 			}
 		});
@@ -481,18 +490,18 @@ public class OperatorView {
 		
 		JButton btnIncident = new JButton("Submit Incident");
 		btnIncident.addActionListener(new ActionListener() {
-			//TODO add data validation
+			
 			public void actionPerformed(ActionEvent e) {
 				
 				
 				
 				String notes = txtANotes.getText();
 				if(notes.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "No incident notes added", "Input Error", 0);
+					JOptionPane.showMessageDialog(frame, "No incident notes added", "Input Error", 0);
 				return;
 
 				} else if (selectedPatient == null) {
-					JOptionPane.showMessageDialog(null, "No patient has been selected", "Input Error", 0);
+					JOptionPane.showMessageDialog(frame, "No patient has been selected", "Input Error", 0);
 					return;
 				}
 				
@@ -500,21 +509,17 @@ public class OperatorView {
 				else {
 					
 					int size = (controller.getSize() + 1);
-					System.out.println(size);
-					
-					
-					
-					
+						
 					Incident incident = new Incident(size, selectedPatient, sqlDate, notes);
-				
-					
+			
 				boolean success = controller.addIncident(incident);
 					if(success) { 
 						AmbulanceFinderView.NewScreen(incident);
 						clearView();		
-						
+						txtANotes.setText("");
+						JOptionPane.showMessageDialog(frame,"Incident Created", "KwikMedical", JOptionPane.INFORMATION_MESSAGE);
 					} else {
-						JOptionPane.showMessageDialog(null, "Error adding Incident" + "\n" + "Please try again", "Input Error", 0);
+						JOptionPane.showMessageDialog(frame, "Error adding Incident" + "\n" + "Please try again", "Input Error", JOptionPane.WARNING_MESSAGE);
 					}
 					
 					
@@ -526,20 +531,20 @@ public class OperatorView {
 		
 		JButton btnSearch = new JButton("Patient Search");
 		btnSearch.addActionListener(new ActionListener() {
-			//TODO Add input validation
+		
 			
 			public void actionPerformed(ActionEvent arg0) {
 				String chi = txtCHI.getText();
 				
 				if ( (chi.isEmpty()) || (!chi.matches("[0-9]+")) || (chi.length() > 10) ) {
-					JOptionPane.showMessageDialog(null, "Invalid CHI Number, please re-enter", "Input Error", 0);
+					JOptionPane.showMessageDialog(frame, "Invalid CHI Number, please re-enter", "Input Error", JOptionPane.WARNING_MESSAGE);
 					return;
 				} else {
 					
 					selectedPatient = controller.findPatient(chi);
 					
 					if(selectedPatient == null) {
-						int result = JOptionPane.showConfirmDialog(null, "Do you wish to Register a New User?", "No Patient Found", 0);
+						int result = JOptionPane.showConfirmDialog(frame, "Do you wish to Register a New User?", "No Patient Found", 0);
 						if(result == JOptionPane.YES_OPTION) {
 
 						} else {
@@ -598,11 +603,24 @@ public class OperatorView {
 		String postcode = txtPostcode.getText();
 		
 		
-		//TODO Add data validation with Regex
-		Patient patient = new Patient(chi, name,dob , gender, phone1, phone2, houseNumber, line1, line2, town, postcode );	
-	
-		return patient;
+		if(name.toLowerCase().matches(".*\\d+.*")) {
+			//error
+		} else if((gender.toLowerCase() != "male") || (gender.toLowerCase() != "female") ) {
+			//error
+		} else if(town.toLowerCase().matches(".*\\d+.*")) {
+			//error
+		} else if((line1.toLowerCase().matches(".*\\d+.*")) || line2.toLowerCase().matches(".*\\d+.*")) {
+			//error
+		} else {
+			Patient patient = new Patient(chi, name,dob , gender, phone1, phone2, houseNumber, line1, line2, town, postcode );	
+			
+			return patient;
+			
+		}
 		
+		return null;
+		//TODO Add data validation with Regex
+
 		
 	}
 	

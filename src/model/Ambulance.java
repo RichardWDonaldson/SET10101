@@ -46,7 +46,7 @@ public void setLocation(String location) {
 	this.location = location;
 }
 
-//TODO clean toString()
+
 @Override
 public String toString() {
 	

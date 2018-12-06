@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.GridBagLayout;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 import model.Ambulance;
 import model.Incident;
@@ -57,7 +58,10 @@ static Incident selectedIncident;
 	//	System.out.println("Opening Ambulance Finder View");
 		selectedIncident = incident;
 	//	System.out.println(selectedIncident.toString());
-		controller.initialize();
+//		Boolean databaseSuccess =	controller.initialize();
+//		if(!databaseSuccess) {
+//			JOptionPane.showMessageDialog(frame, "Database Error - Could not connect to Database", "Critical Error", 0);
+//		}
 		ambulance = controller.getAmbulance();
 		
 		initialize();
@@ -99,14 +103,21 @@ static Incident selectedIncident;
 				
 				Ambulance selectedAmbulance = (Ambulance) list.getSelectedValue();
 	
-	//			System.out.println("Ambulance Finder View: Send Request button " + selectedAmbulance.toString() + "\n\n" + selectedIncident.toString());
-				
-				Request request = new Request(selectedAmbulance, selectedIncident);
-				
-				controller.addRequest(request);
-
-				frame.dispose();
-				
+				if(selectedAmbulance == null) {
+					JOptionPane.showMessageDialog(frame, "No Ambulance Selected", "Error", JOptionPane.WARNING_MESSAGE);
+				} else {
+					Request request = new Request(selectedAmbulance, selectedIncident);
+					
+					boolean requestSuccess	= controller.addRequest(request);
+					
+					if(requestSuccess) {
+						JOptionPane.showMessageDialog(frame, "Request submitted", "KwikMedical", JOptionPane.INFORMATION_MESSAGE);
+						frame.dispose();
+					} else {
+						JOptionPane.showMessageDialog(frame, "Error in Request, please try again", "Error", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+					
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -118,6 +129,7 @@ static Incident selectedIncident;
 		JButton btnNewButton_1 = new JButton("Cancel");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				frame.dispose();
 			}
 		});

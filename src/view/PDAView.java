@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 public class PDAView {
@@ -56,7 +57,7 @@ public class PDAView {
 				try {
 					PDAView window = new PDAView(login);
 					window.frame.setVisible(true);
-					//Controller.initialize();
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -71,28 +72,24 @@ public class PDAView {
 	 * @throws IOException 
 	 */
 	public PDAView(Login login) throws IOException {
-	//	System.out.println(login.toString());
+	
 		Controller controller = new Controller();
-		controller.initialize();
+		Boolean databaseSuccess =	controller.initialize();
+		if(!databaseSuccess) {
+			JOptionPane.showMessageDialog(frame, "Database Error - Could not connect to Database", "Critical Error", 0);
+		}
+		
 		requests = controller.getRequests(login);
 		hospitals = controller.getHospitals();
 		
-//		for(Request r: requests) {
-//			System.out.println(r.toString());
-//			
-//		}
-		
-		
-		
-		
-		
-		initialize();
+
+		initialize(login);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Login login) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 670, 611);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -336,8 +333,8 @@ public class PDAView {
 		
 		JTextArea txtAIncident = new JTextArea();
 		txtAIncident.setEditable(false);
-		//TODO FIX THIS
-	//	txtAIncident.setText(selectedRequest.getIncident().getNotes());
+	
+	
 		GridBagConstraints gbc_txtAIncident = new GridBagConstraints();
 		gbc_txtAIncident.fill = GridBagConstraints.BOTH;
 		gbc_txtAIncident.gridwidth = 4;
@@ -402,9 +399,9 @@ public class PDAView {
 		gbc_panel_2.gridy = 2;
 		frame.getContentPane().add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{0, 0, 0};
+		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_panel_2.rowHeights = new int[]{0, 0, 0};
-		gbl_panel_2.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_2.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_panel_2.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
@@ -412,8 +409,8 @@ public class PDAView {
 		panel_5.setBorder(new TitledBorder(null, "Pending Requests", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_panel_5 = new GridBagConstraints();
 		gbc_panel_5.fill = GridBagConstraints.BOTH;
-		gbc_panel_5.gridwidth = 2;
-		gbc_panel_5.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_5.gridwidth = 3;
+		gbc_panel_5.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_5.gridx = 0;
 		gbc_panel_5.gridy = 0;
 		panel_2.add(panel_5, gbc_panel_5);
@@ -437,15 +434,19 @@ public class PDAView {
 		JButton btnNewButton = new JButton("Select Incident");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			//Ambulance selectedAmbulance = (Ambulance) list.getSelectedValue();
+			
 			
 			selectedRequest = (Request) listRequests.getSelectedValue();	
+			if(selectedRequest == null) {
+				JOptionPane.showMessageDialog(frame, "No incident Selected", "Error", JOptionPane.WARNING_MESSAGE);
+			} else {
+				populateFields(selectedRequest);
 				
-			//System.out.println("Selected Request" + selectedRequest.toString());
+				txtAIncident.setText(selectedRequest.getIncident().getNotes());
+			}
 			
 			
-			populateFields(selectedRequest);
-				
+			
 			
 			}
 		});
@@ -460,25 +461,54 @@ public class PDAView {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				String strResponse = txtAResponce.getText();
+				if(strResponse.isEmpty()) {
+					
+				JOptionPane.showMessageDialog(frame, "No response notes added", "Error", JOptionPane.WARNING_MESSAGE);
+				} else {
+					Hospital selectedHospital = (Hospital) listHospital.getSelectedValue();
+					
+					if(selectedHospital == null) {
+						JOptionPane.showMessageDialog(frame, "No Hospital selected", "Error", JOptionPane.WARNING_MESSAGE);
+			
+					} else {
+						
+						Response response = new Response(selectedRequest, strResponse, selectedHospital);
+							
+						Boolean responseSuccess = 	controller.addResponce(response);
+						
+						if(!responseSuccess) {
+							JOptionPane.showMessageDialog(frame, "Error creating Response", "Error", JOptionPane.WARNING_MESSAGE);
+						} else {
+							JOptionPane.showMessageDialog(frame, "Response added", "KwikMedical", JOptionPane.INFORMATION_MESSAGE);
+						}
+						
+					}
+			
+				}
 				
-				Hospital selectedHospital = (Hospital) listHospital.getSelectedValue();
+			}
+		});
+		
+		JButton btnRefresh = new JButton("Refresh Requests");
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				requests.clear();
+				
+				requests = controller.getRequests(login);
 				
 				
-				//create responce and then send to the nearest Hospital
-				
-				//Request, notes, hospital
-				Response response = new Response(selectedRequest, strResponse, selectedHospital);
-				System.out.println("Response created");
-		//		System.out.println("This is the responce" + response.toString());	
-				
-				//Change addResponse to Boolean to test for success
-				controller.addResponce(response);
 				
 				
 			}
 		});
+		GridBagConstraints gbc_btnRefresh = new GridBagConstraints();
+		gbc_btnRefresh.insets = new Insets(0, 0, 0, 5);
+		gbc_btnRefresh.gridx = 1;
+		gbc_btnRefresh.gridy = 1;
+		panel_2.add(btnRefresh, gbc_btnRefresh);
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.gridx = 1;
+		gbc_btnNewButton_1.gridx = 2;
 		gbc_btnNewButton_1.gridy = 1;
 		panel_2.add(btnNewButton_1, gbc_btnNewButton_1);
 	}
@@ -495,12 +525,7 @@ public class PDAView {
 		txtLine1.setText(request.getIncident().getPatient().getLine1());
 		txtLine2.setText(request.getIncident().getPatient().getLine2());
 		txtTown.setText(request.getIncident().getPatient().getTown());
-		txtPostcode.setText(request.getIncident().getPatient().getPostcode());
-		
-	
-		
-		
-		
+		txtPostcode.setText(request.getIncident().getPatient().getPostcode());		
 	}
 	
 	

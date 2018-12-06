@@ -32,17 +32,20 @@ public class Controller {
 
 	
 	//Initialize the Database connection
-	public void initialize() throws IOException {
+	public boolean initialize() throws IOException {
 		//TODO data validation
 		try {
 			
 			database = new Database();
 			con = database.getConnection();
+			return true;
 
 		} catch (NullPointerException ex) {
 			
 			ex.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Database Error - Could not connect to Database", "Critical Error", 0);
+		return false;	
+		
 		}
 
 	}
@@ -61,8 +64,10 @@ public class Controller {
 			ResultSet rs = stmt.executeQuery("select * from patientRecords where patient_id = " + chi );
 
 			while(rs.next()) {
+				
+				
 
-				for(int i=1;i<rs.getMetaData().getColumnCount(); i++) {
+				for(int i=1;i<=rs.getMetaData().getColumnCount(); i++) {
 
 					output[i] = rs.getString(i);
 
@@ -95,12 +100,12 @@ public class Controller {
 		} catch (SQLException e) {
 
 			System.out.println("Controller: findPatient error");
-			JOptionPane.showMessageDialog(null, "Database error: Please Contact System Admin", "Critical Error", 0);
+		//	JOptionPane.showMessageDialog(frame, "Database error: Please Contact System Admin", "Critical Error", 0);
 			e.printStackTrace();
 		
 		} catch (NullPointerException ex) {
 		
-			JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
+		//	JOptionPane.showMessageDialog(frame, "Input/output Error- Contact System Admin", "Critical Error", 0);
 		}
 
 		return null;
@@ -109,7 +114,7 @@ public class Controller {
 
 	//adds incident to incident table
 	public boolean addIncident(Incident incident) {
-		//TODO Add check to see if insert statement worked, add data validation to input
+		
 		try {
 			
 			//	con = database.getConnection();
@@ -124,7 +129,7 @@ public class Controller {
 			} else {
 				
 				System.out.println("Update Failed");
-				JOptionPane.showMessageDialog(null, "Update failed: Please try again", "Critical Error", 0);
+			//	JOptionPane.showMessageDialog(frame, "Update failed: Please try again", "Critical Error", 0);
 			}
 
 
@@ -132,12 +137,12 @@ public class Controller {
 		} catch (SQLException e) {
 			
 			System.out.println("Controller: addIncident error");
-			JOptionPane.showMessageDialog(null, "Database error: Please Contact System Admin", "Critical Error", 0);
+		//	JOptionPane.showMessageDialog(null, "Database error: Please Contact System Admin", "Critical Error", 0);
 			e.printStackTrace();
 		
 		} catch (NullPointerException ex) {
 		
-			JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
+	//		JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
 		}
 		return false;
 
@@ -174,17 +179,17 @@ public class Controller {
 			} else {
 				
 				System.out.println("Failure, try again");
-				JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
+	//			JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Database error: Contact System Admin", "Critical Error", 0);
+	//		JOptionPane.showMessageDialog(null, "Database error: Contact System Admin", "Critical Error", 0);
 		
 		} catch (NullPointerException ex) {
-			JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
+	//		JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
 		}
 		return false;
 	}
@@ -208,12 +213,12 @@ public class Controller {
 		
 		}catch(SQLException e) {
 		
-			JOptionPane.showMessageDialog(null, "Database error: Contact System Admin", "Critical Error", 0);
+	//		JOptionPane.showMessageDialog(null, "Database error: Contact System Admin", "Critical Error", 0);
 			e.printStackTrace();
 		
 		} catch (NullPointerException ex) {
 		
-			JOptionPane.showMessageDialog(null, "Input/Output error: Contact System Admin", "Critical Error", 0);
+	//		JOptionPane.showMessageDialog(null, "Input/Output error: Contact System Admin", "Critical Error", 0);
 			ex.printStackTrace();
 		}
 
@@ -238,17 +243,17 @@ public class Controller {
 				return true;
 			} else {
 				System.out.println("Failure, try again");
-				JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
+	//			JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
 			}
 
 		} catch (SQLException e) {
 
-			JOptionPane.showMessageDialog(null, "Database error: Contact System Admin", "Critical Error", 0);
+	//		JOptionPane.showMessageDialog(null, "Database error: Contact System Admin", "Critical Error", 0);
 			e.printStackTrace();
 
 		} catch (NullPointerException ex) {
 		
-			JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
+	//		JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
 		}
 			
 		return false;
@@ -272,12 +277,12 @@ public class Controller {
 		
 		}catch(SQLException e) {
 		
-			JOptionPane.showMessageDialog(null, "Database error: Contact System Admin", "Critical Error", 0);
+	//		JOptionPane.showMessageDialog(null, "Database error: Contact System Admin", "Critical Error", 0);
 			e.printStackTrace();
 		
 		} catch (NullPointerException ex) {
 		
-			JOptionPane.showMessageDialog(null, "Input/Output error: Contact System Admin", "Critical Error", 0);
+	//		JOptionPane.showMessageDialog(null, "Input/Output error: Contact System Admin", "Critical Error", 0);
 			ex.printStackTrace();
 		}
 		
@@ -289,8 +294,8 @@ public class Controller {
 
 	public ArrayList<Request> getRequests(Login login) {
 
-		System.out.println("Get requests" + login.toString());
-		System.out.println(Integer.parseInt(login.getAmbulanceID()));
+	//	System.out.println("Get requests" + login.toString());
+	//	System.out.println(Integer.parseInt(login.getAmbulanceID()));
 
 		Ambulance currentAmbulance = getCurrentAmbulance(Integer.parseInt(login.getAmbulanceID()));
 
@@ -302,7 +307,7 @@ public class Controller {
 
 			for(int i=0;i<rs.getMetaData().getColumnCount(); i++) {
 				while(rs.next()) {
-					System.out.println("Request: ID/Ambulance/Incident " + rs.getInt(1) + " " + rs.getInt(2) + " " + rs.getInt(3));
+	//				System.out.println("Request: ID/Ambulance/Incident " + rs.getInt(1) + " " + rs.getInt(2) + " " + rs.getInt(3));
 
 					incidents.add(rs.getInt(3));
 				}
@@ -325,12 +330,12 @@ public class Controller {
 			
 		}catch(SQLException e) {
 			
-			JOptionPane.showMessageDialog(null, "Database error: Contact System Admin", "Critical Error", 0);
+		//	JOptionPane.showMessageDialog(null, "Database error: Contact System Admin", "Critical Error", 0);
 			e.printStackTrace();
 			
 		} catch (NullPointerException ex) {
 		
-			JOptionPane.showMessageDialog(null, "Input/Output error: Contact System Admin", "Critical Error", 0);
+		//	JOptionPane.showMessageDialog(null, "Input/Output error: Contact System Admin", "Critical Error", 0);
 			ex.printStackTrace();
 		}
 
@@ -364,7 +369,7 @@ public class Controller {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return null;
@@ -389,7 +394,7 @@ public class Controller {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
@@ -447,7 +452,7 @@ public class Controller {
 				return true;
 			} else {
 				System.out.println("Failure, try again");
-				JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
+				//JOptionPane.showMessageDialog(null, "Input/output Error- Contact System Admin", "Critical Error", 0);
 			}
 
 

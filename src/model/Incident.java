@@ -51,7 +51,7 @@ public class Incident {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-//TODO clean Tostring()
+
 	@Override
 	public String toString() {
 	

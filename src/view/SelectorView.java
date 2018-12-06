@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import controller.Controller;
 import model.Hospital;
@@ -43,7 +44,10 @@ public class SelectorView {
 	 * @throws IOException 
 	 */
 	public SelectorView() throws IOException {
-	controller.initialize();
+		//Boolean databaseSuccess =	controller.initialize();
+		//if(!databaseSuccess) {
+		//	JOptionPane.showMessageDialog(frame, "Database Error - Could not connect to Database", "Critical Error", 0);
+	//	}
 	selectedHospital = controller.getCurrentHospital(100);
 		initialize();
 	}

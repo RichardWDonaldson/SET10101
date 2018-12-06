@@ -19,6 +19,8 @@ import model.Incident;
 import model.Response;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,7 +60,6 @@ Controller controller = new Controller();
 				try {
 					HospitalView window = new HospitalView();
 					window.frame.setVisible(true);
-					//Controller.initialize();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -74,16 +75,11 @@ Controller controller = new Controller();
 	 * @throws IOException 
 	 */
 	public HospitalView() throws IOException {
-		controller.initialize();
+		
 		selectedHospital = controller.getCurrentHospital(100);
 		responses = controller.getResponses(selectedHospital);
-		initialize();
-
-		//TODO Get incidents involved with patient
-		//TODO get patient details
-		//TODO Alter details
-		//TODO Add details
-		//TODO Change toString for Response
+		initialize();	
+		
 	}
 
 	/**
@@ -132,29 +128,25 @@ Controller controller = new Controller();
 		JButton btnSelectResponse = new JButton("Select Response");
 		btnSelectResponse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-			
-				
+					
 				selectedResponse = (Response) list_2.getSelectedValue();
 				
-				populateFields(selectedResponse);
-				
-				String id = selectedResponse.getRequest().getIncident().getPatient().getChiNumber();
-				System.out.println("Selected ID " + id);
-				
-				int selectedID = Integer.parseInt(id);
-				
-				incidents = controller.getIncidents(selectedID);
-				
-			
-				
-				for (Incident incident: incidents) {
-					model.addElement(incident);
-				}
-				
-				
-				
-				
+				if(selectedResponse == null) {
+					JOptionPane.showMessageDialog(frame, "No Response selected", "Error", JOptionPane.WARNING_MESSAGE);
+				} else {
+					populateFields(selectedResponse);
+					
+					String id = selectedResponse.getRequest().getIncident().getPatient().getChiNumber();
+					
+					int selectedID = Integer.parseInt(id);
+					
+					incidents = controller.getIncidents(selectedID);
+					
+					for (Incident incident: incidents) {
+						model.addElement(incident);
+					}
+					
+				}			
 			}
 		});
 		GridBagConstraints gbc_btnSelectResponse = new GridBagConstraints();
@@ -164,6 +156,14 @@ Controller controller = new Controller();
 		panel_4.add(btnSelectResponse, gbc_btnSelectResponse);
 		
 		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				responses.clear();
+				
+				responses = controller.getResponses(selectedHospital);
+			}
+		});
 		GridBagConstraints gbc_btnRefresh = new GridBagConstraints();
 		gbc_btnRefresh.gridx = 1;
 		gbc_btnRefresh.gridy = 1;
@@ -392,8 +392,11 @@ Controller controller = new Controller();
 				
 				selectedIncident = (Incident) IncidentsList.getSelectedValue();
 				
-				IncidentView.NewScreen(selectedIncident, selectedResponse);
-				
+				if(selectedIncident == null) {
+					JOptionPane.showMessageDialog(frame, "No Incident selected", "Error", JOptionPane.WARNING_MESSAGE);
+				} else {
+					IncidentView.NewScreen(selectedIncident, selectedResponse);
+				}	
 			}
 		});
 		GridBagConstraints gbc_btnViewIncident = new GridBagConstraints();
@@ -419,6 +422,9 @@ Controller controller = new Controller();
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				responses.clear();
+				
+				responses = controller.getResponses(selectedHospital);
 				
 			}
 		});
@@ -445,21 +451,18 @@ Controller controller = new Controller();
 	
 	public void populateFields(Response response) {
 		
-	txtCHI.setText(response.getRequest().getIncident().getPatient().getChiNumber());	
-	txtName.setText(response.getRequest().getIncident().getPatient().getName());
-	txtDOB.setText(response.getRequest().getIncident().getPatient().getDob());
-	txtGender.setText(response.getRequest().getIncident().getPatient().getGender());
-	txtPhone1.setText(response.getRequest().getIncident().getPatient().getPhone1());
-	txtPhone2.setText(response.getRequest().getIncident().getPatient().getPhone2());
-	txtHouseNumber.setText(response.getRequest().getIncident().getPatient().getHouseNumber());
-	txtLine1.setText(response.getRequest().getIncident().getPatient().getLine1());
-	txtLine2.setText(response.getRequest().getIncident().getPatient().getLine2());
-	txtTown.setText(response.getRequest().getIncident().getPatient().getTown());
-	txtPostcode.setText(response.getRequest().getIncident().getPatient().getPostcode());
+		txtCHI.setText(response.getRequest().getIncident().getPatient().getChiNumber());	
+		txtName.setText(response.getRequest().getIncident().getPatient().getName());
+		txtDOB.setText(response.getRequest().getIncident().getPatient().getDob());
+		txtGender.setText(response.getRequest().getIncident().getPatient().getGender());
+		txtPhone1.setText(response.getRequest().getIncident().getPatient().getPhone1());
+		txtPhone2.setText(response.getRequest().getIncident().getPatient().getPhone2());
+		txtHouseNumber.setText(response.getRequest().getIncident().getPatient().getHouseNumber());
+		txtLine1.setText(response.getRequest().getIncident().getPatient().getLine1());
+		txtLine2.setText(response.getRequest().getIncident().getPatient().getLine2());
+		txtTown.setText(response.getRequest().getIncident().getPatient().getTown());
+		txtPostcode.setText(response.getRequest().getIncident().getPatient().getPostcode());
 	
-	
-	
-		
 	}
 	
 
